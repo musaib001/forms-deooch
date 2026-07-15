@@ -8,6 +8,27 @@ const ERROR_MESSAGES: Record<string, string> = {
   not_invited: "That Google account hasn't been invited to this workspace.",
 };
 
+const FEATURES = [
+  {
+    title: "Build with AI or by hand",
+    description:
+      "Describe a form to Claude or GPT and it's created instantly — or build it yourself in the portal.",
+    icon: SparkleIcon,
+  },
+  {
+    title: "Share one clean link",
+    description:
+      "Every form gets a stable public link respondents can fill out — no account required.",
+    icon: LinkIcon,
+  },
+  {
+    title: "Export responses anytime",
+    description:
+      "Browse submissions in a searchable table or download the full set as an Excel file.",
+    icon: TableIcon,
+  },
+];
+
 async function signInWithGoogle() {
   const supabase = createClient();
   await supabase.auth.signInWithOAuth({
@@ -33,35 +54,79 @@ function LoginError() {
 
 export default function LoginPage() {
   return (
-    <div className="flex min-h-screen items-center justify-center px-4">
-      <div className="w-full max-w-sm rounded-2xl border border-border bg-card p-8 shadow-sm">
-        <div className="mb-6 flex flex-col items-center gap-3 text-center">
-          <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand text-lg font-bold text-brand-foreground">
-            d
-          </span>
-          <div>
-            <h1 className="text-xl font-bold tracking-tight text-foreground">
-              deoochform
-            </h1>
-            <p className="mt-1 text-sm text-muted-foreground">
-              Sign in to build and manage your forms.
+    <div className="flex min-h-screen flex-col bg-background">
+      <header className="flex items-center gap-2 px-6 py-5 lg:px-10">
+        <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand text-sm font-bold text-brand-foreground">
+          d
+        </span>
+        <span className="text-base font-semibold tracking-tight text-foreground">
+          deoochform
+        </span>
+      </header>
+
+      <main className="mx-auto grid w-full max-w-6xl flex-1 grid-cols-1 items-center gap-12 px-6 py-8 lg:grid-cols-2 lg:gap-16 lg:px-10">
+        <section className="hidden max-w-md lg:block">
+          <p className="text-sm font-semibold uppercase tracking-wide text-brand">
+            AI-native form builder
+          </p>
+          <h1 className="mt-3 text-4xl font-bold leading-tight tracking-tight text-foreground">
+            Forms that build themselves.
+          </h1>
+          <p className="mt-4 text-[15px] leading-relaxed text-muted-foreground">
+            Create, share, and analyze forms without leaving your chat with
+            Claude — or build them by hand when you want full control.
+          </p>
+
+          <ul className="mt-10 flex flex-col gap-6">
+            {FEATURES.map(({ title, description, icon: Icon }) => (
+              <li key={title} className="flex gap-4">
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-brand-subtle text-brand">
+                  <Icon />
+                </span>
+                <div>
+                  <p className="text-sm font-semibold text-foreground">
+                    {title}
+                  </p>
+                  <p className="mt-0.5 text-sm text-muted-foreground">
+                    {description}
+                  </p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <section className="mx-auto w-full max-w-sm">
+          <div className="rounded-2xl border border-border bg-card p-8 shadow-sm">
+            <div className="mb-6 text-center lg:text-left">
+              <h2 className="text-xl font-bold tracking-tight text-foreground">
+                Sign in to your workspace
+              </h2>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Use your invited Google account to continue.
+              </p>
+            </div>
+
+            <div className="space-y-4">
+              <Suspense fallback={null}>
+                <LoginError />
+              </Suspense>
+              <button
+                onClick={signInWithGoogle}
+                className="flex w-full items-center justify-center gap-2.5 rounded-lg border border-border bg-card px-4 py-2.5 text-sm font-semibold text-foreground shadow-sm transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card"
+              >
+                <GoogleIcon />
+                Continue with Google
+              </button>
+            </div>
+
+            <p className="mt-6 text-center text-xs text-muted-foreground lg:text-left">
+              Access is invite-only. Contact your workspace owner if you need
+              an invite.
             </p>
           </div>
-        </div>
-
-        <div className="space-y-4">
-          <Suspense fallback={null}>
-            <LoginError />
-          </Suspense>
-          <button
-            onClick={signInWithGoogle}
-            className="flex w-full items-center justify-center gap-2.5 rounded-lg border border-border bg-card px-4 py-2.5 text-sm font-semibold text-foreground shadow-sm transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card"
-          >
-            <GoogleIcon />
-            Continue with Google
-          </button>
-        </div>
-      </div>
+        </section>
+      </main>
     </div>
   );
 }
@@ -85,6 +150,58 @@ function GoogleIcon() {
         fill="#EA4335"
         d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1a11 11 0 0 0-9.82 6.06l3.66 2.84C6.71 7.3 9.14 5.38 12 5.38Z"
       />
+    </svg>
+  );
+}
+
+function SparkleIcon() {
+  return (
+    <svg
+      className="h-[18px] w-[18px]"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M18 6l-2.5 2.5M8.5 15.5 6 18" />
+    </svg>
+  );
+}
+
+function LinkIcon() {
+  return (
+    <svg
+      className="h-[18px] w-[18px]"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <path d="M9 17H7a5 5 0 0 1 0-10h2M15 7h2a5 5 0 1 1 0 10h-2M8 12h8" />
+    </svg>
+  );
+}
+
+function TableIcon() {
+  return (
+    <svg
+      className="h-[18px] w-[18px]"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <rect x="3" y="4" width="18" height="16" rx="2" />
+      <path d="M3 10h18M9 10v10" />
     </svg>
   );
 }
