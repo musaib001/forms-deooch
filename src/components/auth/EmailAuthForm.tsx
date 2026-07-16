@@ -118,6 +118,7 @@ export function EmailAuthForm({ mode }: { mode: Mode }) {
         <input
           id="email"
           type="email"
+          autoFocus
           autoComplete="email"
           spellCheck={false}
           placeholder="you@example.com"
