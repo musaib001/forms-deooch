@@ -455,12 +455,6 @@ function AddressGroup({
         const partId = `${field.id}-${part.key}`;
         return (
           <div key={part.key} className={fullWidth ? "sm:col-span-2" : undefined}>
-            <label
-              htmlFor={partId}
-              className="mb-1 block text-[13px] font-medium text-muted-foreground"
-            >
-              {part.label}
-            </label>
             <input
               id={partId}
               // Only the first input is registered for focus-on-error, and only
@@ -474,6 +468,15 @@ function AddressGroup({
               onBlur={onBlur}
               className={inputClass}
             />
+            {/* Caption sits under its input: the sub-label describes what was
+                just typed rather than prompting for it, which is the postal-form
+                convention the reference follows. */}
+            <label
+              htmlFor={partId}
+              className="mt-1.5 block text-[13px] text-muted-foreground"
+            >
+              {part.label}
+            </label>
           </div>
         );
       })}
