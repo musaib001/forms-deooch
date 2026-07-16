@@ -11,11 +11,11 @@ export default async function PortalLayout({
   if (!profile) redirect("/login");
 
   return (
-    <div className="flex min-h-screen flex-col">
+    // h-screen + min-h-0 (not min-h-screen) so a full-bleed child can claim the
+    // exact remaining viewport height and scroll internally.
+    <div className="flex h-screen flex-col">
       <TopBar email={profile.email} role={profile.role} plan={profile.plan} />
-      <main className="flex-1 px-4 py-8 sm:px-6">
-        <div className="mx-auto max-w-5xl">{children}</div>
-      </main>
+      <main className="min-h-0 flex-1 overflow-y-auto">{children}</main>
     </div>
   );
 }

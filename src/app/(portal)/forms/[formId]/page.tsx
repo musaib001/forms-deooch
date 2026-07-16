@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { FormStudio } from "@/components/builder/FormStudio";
+import { Container } from "@/components/portal/Container";
 
 export default async function EditFormPage({
   params,
@@ -17,5 +18,9 @@ export default async function EditFormPage({
 
   if (!form) notFound();
 
-  return <FormStudio existing={form} />;
+  return (
+    <Container>
+      <FormStudio existing={form} />
+    </Container>
+  );
 }

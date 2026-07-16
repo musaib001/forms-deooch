@@ -4,6 +4,7 @@ import { getSessionProfile } from "@/lib/auth/session";
 import { buttonPrimaryClass } from "@/lib/ui";
 import { formatDate } from "@/lib/date";
 import { FREE_FORM_LIMIT, FREE_SUBMISSION_LIMIT } from "@/lib/forms/limits";
+import { Container } from "@/components/portal/Container";
 
 const STATUS_STYLES: Record<string, string> = {
   published: "bg-brand-subtle text-brand",
@@ -40,7 +41,7 @@ export default async function DashboardPage() {
   const atSubmissionLimit = isFree && totalResponses >= FREE_SUBMISSION_LIMIT;
 
   return (
-    <div>
+    <Container>
       <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2.5">
@@ -166,7 +167,7 @@ export default async function DashboardPage() {
           })}
         </div>
       )}
-    </div>
+    </Container>
   );
 }
 

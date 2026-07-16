@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Container } from "@/components/portal/Container";
 
 export const metadata: Metadata = { title: "Support — deoochform" };
 
@@ -32,7 +33,8 @@ const FAQS = [
 
 export default function SupportPage() {
   return (
-    <div className="mx-auto max-w-3xl">
+    <Container>
+      <div className="mx-auto max-w-3xl">
       <div className="mb-8">
         <h1 className="text-2xl font-bold tracking-tight text-foreground">Support</h1>
         <p className="mt-1 text-sm text-muted-foreground">
@@ -42,7 +44,7 @@ export default function SupportPage() {
 
       <div className="mb-8 grid gap-4 sm:grid-cols-2">
         <a
-          href="mailto:support@deoochform.com"
+          href="mailto:help@deooch.com"
           className="group rounded-2xl border border-border bg-card p-5 transition-colors hover:border-brand/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         >
           <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-subtle text-brand">
@@ -52,7 +54,7 @@ export default function SupportPage() {
             Email support
           </p>
           <p className="mt-0.5 text-sm text-muted-foreground">
-            support@deoochform.com — we reply within one business day.
+            help@deooch.com — we reply within one business day.
           </p>
         </a>
         <Link
@@ -91,14 +93,15 @@ export default function SupportPage() {
       <p className="mt-8 text-center text-sm text-muted-foreground">
         Still stuck?{" "}
         <a
-          href="mailto:support@deoochform.com"
+          href="mailto:help@deooch.com"
           className="font-semibold text-brand hover:text-brand-hover"
         >
           Email us
         </a>{" "}
-        and include your form link so we can help faster.
-      </p>
-    </div>
+          and include your form link so we can help faster.
+        </p>
+      </div>
+    </Container>
   );
 }
 

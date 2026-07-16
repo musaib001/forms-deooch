@@ -13,7 +13,11 @@ export default async function FormSubmissionsPage({
   const supabase = await createClient();
 
   const [{ data: form }, { data: submissions }] = await Promise.all([
-    supabase.from("forms").select("id, title, fields").eq("id", formId).single(),
+    supabase
+      .from("forms")
+      .select("id, title, fields, updated_at")
+      .eq("id", formId)
+      .single(),
     supabase
       .from("submissions")
       .select("id, answers, submitted_at, respondent_meta")
@@ -23,33 +27,48 @@ export default async function FormSubmissionsPage({
 
   if (!form) notFound();
 
-  const count = submissions?.length ?? 0;
+  const rows = submissions ?? [];
+  const count = rows.length;
 
   return (
-    <div>
-      <Link
-        href={`/forms/${formId}`}
-        className="mb-4 inline-block text-sm text-muted-foreground hover:text-foreground"
-      >
-        ← Back to form
-      </Link>
-      <div className="mb-6">
-        <h1 className="text-2xl font-bold tracking-tight text-foreground">
-          {form.title}
-        </h1>
-        <p className="mt-0.5 text-sm text-muted-foreground">
-          {count} {count === 1 ? "response" : "responses"}
-          {submissions?.[0] && (
-            <> · Last response {formatDateTime(submissions[0].submitted_at)}</>
-          )}
-        </p>
-      </div>
-      <SubmissionsView
-        formId={formId}
-        formTitle={form.title}
-        fields={form.fields}
-        submissions={submissions ?? []}
-      />
+    // h-full + min-h-0 chain lets the grid claim the leftover viewport and
+    // scroll internally rather than growing the page.
+    <div className="flex h-full min-h-0 flex-col bg-card">
+      <header className="shrink-0 px-4 pb-2.5 pt-3">
+        <Link
+          href="/dashboard"
+          className="inline-flex items-center gap-1 text-xs font-medium text-muted-foreground transition-colors hover:text-foreground"
+        >
+          ← Back to Forms
+        </Link>
+        <div className="mt-1 flex flex-wrap items-baseline gap-x-3 gap-y-1">
+          <h1 className="text-lg font-bold tracking-tight text-foreground">
+            {form.title}
+          </h1>
+          <p className="text-xs text-muted-foreground">
+            <span className="font-semibold tabular-nums text-foreground">{count}</span>{" "}
+            {count === 1 ? "response" : "responses"}
+            {rows[0] && (
+              <>
+                <Sep />
+                Last response {formatDateTime(rows[0].submitted_at)}
+              </>
+            )}
+            {form.updated_at && (
+              <>
+                <Sep />
+                Modified {formatDateTime(form.updated_at)}
+              </>
+            )}
+          </p>
+        </div>
+      </header>
+
+      <SubmissionsView formId={formId} fields={form.fields} submissions={rows} />
     </div>
   );
+}
+
+function Sep() {
+  return <span className="mx-1.5 text-border">·</span>;
 }

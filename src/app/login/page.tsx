@@ -20,6 +20,19 @@ function UrlError() {
   );
 }
 
+function LoginActions() {
+  const next = useSearchParams().get("next") ?? undefined;
+  return (
+    <>
+      <GoogleButton label="Continue with Google" next={next} />
+
+      <Divider />
+
+      <EmailAuthForm mode="login" next={next} />
+    </>
+  );
+}
+
 export default function LoginPage() {
   return (
     <AuthShell>
@@ -36,11 +49,9 @@ export default function LoginPage() {
         <UrlError />
       </Suspense>
 
-      <GoogleButton label="Continue with Google" />
-
-      <Divider />
-
-      <EmailAuthForm mode="login" />
+      <Suspense fallback={null}>
+        <LoginActions />
+      </Suspense>
 
       <p className="mt-6 text-center text-sm text-muted-foreground">
         Don&apos;t have an account?{" "}

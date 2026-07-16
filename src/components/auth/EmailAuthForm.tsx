@@ -9,7 +9,7 @@ import { PasswordField } from "./PasswordField";
 
 type Mode = "login" | "signup";
 
-export function EmailAuthForm({ mode }: { mode: Mode }) {
+export function EmailAuthForm({ mode, next }: { mode: Mode; next?: string }) {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -49,7 +49,11 @@ export function EmailAuthForm({ mode }: { mode: Mode }) {
       const { error } = await supabase.auth.signUp({
         email,
         password,
-        options: { emailRedirectTo: `${window.location.origin}/auth/callback` },
+        options: {
+          emailRedirectTo: next
+            ? `${window.location.origin}/auth/callback?next=${encodeURIComponent(next)}`
+            : `${window.location.origin}/auth/callback`,
+        },
       });
       setLoading(false);
       if (error) {
@@ -73,7 +77,7 @@ export function EmailAuthForm({ mode }: { mode: Mode }) {
       );
       return;
     }
-    router.push("/dashboard");
+    router.push(next ?? "/dashboard");
     router.refresh();
   }
 

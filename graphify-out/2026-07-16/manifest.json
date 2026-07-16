@@ -15,8 +15,8 @@
     "semantic_hash": ""
   },
   "package.json": {
-    "mtime": 1784140549.9489336,
-    "ast_hash": "8521de8ec03e64608b125a999694b66d",
+    "mtime": 1784213822.1292803,
+    "ast_hash": "83c6f2661322c3bd5c44392d3ed861a5",
     "semantic_hash": ""
   },
   "postcss.config.mjs": {
@@ -30,8 +30,8 @@
     "semantic_hash": ""
   },
   "src/app/(portal)/forms/[formId]/page.tsx": {
-    "mtime": 1784143946.3354027,
-    "ast_hash": "91f0d3c246bbd00de8d00039dce18cf6",
+    "mtime": 1784214381.093957,
+    "ast_hash": "704d9ac5da8c8df9e2b5103d26944e84",
     "semantic_hash": ""
   },
   "src/app/(portal)/forms/[formId]/submissions/page.tsx": {
@@ -40,8 +40,8 @@
     "semantic_hash": ""
   },
   "src/app/(portal)/forms/new/page.tsx": {
-    "mtime": 1784143897.0772038,
-    "ast_hash": "8168cc474a9e55c5fab46eb4b430e777",
+    "mtime": 1784214435.8236032,
+    "ast_hash": "0319e6f6d437e586564b40e8553dd2fb",
     "semantic_hash": ""
   },
   "src/app/(portal)/layout.tsx": {
@@ -85,8 +85,8 @@
     "semantic_hash": ""
   },
   "src/app/api/mcp/route.ts": {
-    "mtime": 1784135230.9651737,
-    "ast_hash": "cdddd6db5d3bab384ba75892e0e44e61",
+    "mtime": 1784215146.4969466,
+    "ast_hash": "d8b2abb802c6cd82d41aa233f8444db6",
     "semantic_hash": ""
   },
   "src/app/api/members/[memberId]/route.ts": {
@@ -140,8 +140,8 @@
     "semantic_hash": ""
   },
   "src/app/login/page.tsx": {
-    "mtime": 1784182717.5617676,
-    "ast_hash": "46ab90f3b6a8469b1614601ae658b843",
+    "mtime": 1784215158.4559813,
+    "ast_hash": "13be16b7c39cbb58bcc81228819561d5",
     "semantic_hash": ""
   },
   "src/app/page.tsx": {
@@ -165,13 +165,13 @@
     "semantic_hash": ""
   },
   "src/components/auth/EmailAuthForm.tsx": {
-    "mtime": 1784202793.3496182,
-    "ast_hash": "ae578d97435ebbf7e7552d429b370201",
+    "mtime": 1784215205.2670834,
+    "ast_hash": "741a3a1482701e087eaa3a07c08d76f7",
     "semantic_hash": ""
   },
   "src/components/auth/GoogleButton.tsx": {
-    "mtime": 1784182653.8609912,
-    "ast_hash": "5e9b262bbef27c0e9fa4aa461494342d",
+    "mtime": 1784215217.708479,
+    "ast_hash": "0bbaa055ef6fe6ce2bf7e752d5f4c6f3",
     "semantic_hash": ""
   },
   "src/components/auth/PasswordField.tsx": {
@@ -182,21 +182,6 @@
   "src/components/forms/DeleteFormButton.tsx": {
     "mtime": 1784143925.750945,
     "ast_hash": "717d455b10b3c0721e13c2d31440d70a",
-    "semantic_hash": ""
-  },
-  "src/components/forms/FieldEditor.tsx": {
-    "mtime": 1784139763.6516998,
-    "ast_hash": "8fb3a6ca7f09b91177761e05ffd379ef",
-    "semantic_hash": ""
-  },
-  "src/components/forms/FieldList.tsx": {
-    "mtime": 1784139194.2755167,
-    "ast_hash": "645d1a0e7115ba5da776cbf862dd3157",
-    "semantic_hash": ""
-  },
-  "src/components/forms/FormBuilder.tsx": {
-    "mtime": 1784141124.2202837,
-    "ast_hash": "9b63ae3c114e946aacb897b7747ee461",
     "semantic_hash": ""
   },
   "src/components/forms/FormPreviewModal.tsx": {
@@ -402,6 +387,56 @@
   "src/app/(portal)/support/page.tsx": {
     "mtime": 1784204116.8781998,
     "ast_hash": "2679ca13b2ec8af7f24efd0b0a0abbd7",
+    "semantic_hash": ""
+  },
+  "src/components/builder/FormStudio.tsx": {
+    "mtime": 1784214162.795857,
+    "ast_hash": "d07003873d0d382f31d300e011a39c88",
+    "semantic_hash": ""
+  },
+  "src/components/builder/Inspector.tsx": {
+    "mtime": 1784214238.4374769,
+    "ast_hash": "863fad735f8efb5f0db7a97aa44ae2e8",
+    "semantic_hash": ""
+  },
+  "src/components/builder/library.ts": {
+    "mtime": 1784213964.4037457,
+    "ast_hash": "a4c5bb91b61b6e7c104dfa5a2f6f0ddf",
+    "semantic_hash": ""
+  },
+  "src/app/.well-known/oauth-authorization-server/route.ts": {
+    "mtime": 1784215122.0940135,
+    "ast_hash": "951ffd8cc939c7039c93c5a06b4c446e",
+    "semantic_hash": ""
+  },
+  "src/app/.well-known/oauth-protected-resource/route.ts": {
+    "mtime": 1784215133.973171,
+    "ast_hash": "af209d77f78f7a1987c276cd5be873e6",
+    "semantic_hash": ""
+  },
+  "src/app/authorize/route.ts": {
+    "mtime": 1784215079.1966174,
+    "ast_hash": "bd806a64a4fa155e1820f4930d9c3866",
+    "semantic_hash": ""
+  },
+  "src/app/register/route.ts": {
+    "mtime": 1784215108.7436712,
+    "ast_hash": "10d1c808be4f73fcc0b0cf309cbde8cc",
+    "semantic_hash": ""
+  },
+  "src/app/token/route.ts": {
+    "mtime": 1784215094.1898828,
+    "ast_hash": "f8d8d1e24590784a30b2c04d76ff2618",
+    "semantic_hash": ""
+  },
+  "src/lib/mcp/oauth.ts": {
+    "mtime": 1784215043.4485624,
+    "ast_hash": "b5ef52b035ca97dfabb43f76037e5ac4",
+    "semantic_hash": ""
+  },
+  "supabase/migrations/0007_oauth_codes.sql": {
+    "mtime": 1784215036.9644365,
+    "ast_hash": "b9b5c0972a5f0533aa04daddf8a67601",
     "semantic_hash": ""
   }
 }

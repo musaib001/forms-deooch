@@ -5,7 +5,11 @@ import { resolveActor } from "@/lib/mcp/auth";
 async function handle(request: Request) {
   const actor = await resolveActor(request);
   if (!actor) {
-    return Response.json({ error: "Unauthorized" }, { status: 401 });
+    const resourceMetadataUrl = `${process.env.NEXT_PUBLIC_APP_URL}/.well-known/oauth-protected-resource`;
+    return Response.json(
+      { error: "Unauthorized" },
+      { status: 401, headers: { "WWW-Authenticate": `Bearer resource_metadata="${resourceMetadataUrl}"` } }
+    );
   }
 
   const server = createMcpServer(actor);

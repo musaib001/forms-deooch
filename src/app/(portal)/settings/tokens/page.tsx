@@ -1,8 +1,9 @@
 import { TokensTable } from "@/components/settings/TokensTable";
+import { Container } from "@/components/portal/Container";
 
 export default function TokensPage() {
   return (
-    <div>
+    <Container>
       <h1 className="text-2xl font-bold tracking-tight text-foreground">
         API Tokens
       </h1>
@@ -14,6 +15,6 @@ export default function TokensPage() {
         .
       </p>
       <TokensTable />
-    </div>
+    </Container>
   );
 }
