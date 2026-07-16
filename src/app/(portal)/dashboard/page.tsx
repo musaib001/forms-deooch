@@ -3,7 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 import { getSessionProfile } from "@/lib/auth/session";
 import { buttonPrimaryClass } from "@/lib/ui";
 import { formatDate } from "@/lib/date";
-import { FREE_FORM_LIMIT, FREE_SUBMISSION_LIMIT } from "@/lib/forms/limits";
+import { quotaFor } from "@/lib/plans";
 import { Container } from "@/components/portal/Container";
 
 const STATUS_STYLES: Record<string, string> = {
@@ -36,9 +36,10 @@ export default async function DashboardPage() {
   const forms = (data ?? []) as FormRow[];
   const totalResponses = forms.reduce((sum, f) => sum + responseCount(f), 0);
   const publishedCount = forms.filter((f) => f.status === "published").length;
-  const isFree = profile?.role === "free";
-  const atFormLimit = isFree && forms.length >= FREE_FORM_LIMIT;
-  const atSubmissionLimit = isFree && totalResponses >= FREE_SUBMISSION_LIMIT;
+  const quota = profile ? quotaFor(profile) : { formLimit: null, submissionLimit: null };
+  const atFormLimit = quota.formLimit !== null && forms.length >= quota.formLimit;
+  const atSubmissionLimit =
+    quota.submissionLimit !== null && totalResponses >= quota.submissionLimit;
 
   return (
     <Container>
@@ -62,7 +63,7 @@ export default async function DashboardPage() {
         </div>
         {atFormLimit ? (
           <span
-            title={`Free accounts are limited to ${FREE_FORM_LIMIT} forms`}
+            title={`Your plan is limited to ${quota.formLimit} forms`}
             className="cursor-not-allowed rounded-lg border border-border bg-muted px-4 py-2.5 text-sm font-semibold text-muted-foreground"
           >
             New form
@@ -80,13 +81,13 @@ export default async function DashboardPage() {
           <Stat
             label="Forms"
             value={forms.length}
-            limit={isFree ? FREE_FORM_LIMIT : undefined}
+            limit={quota.formLimit ?? undefined}
             icon={<DocIcon />}
           />
           <Stat
             label="Responses"
             value={totalResponses}
-            limit={isFree ? FREE_SUBMISSION_LIMIT : undefined}
+            limit={quota.submissionLimit ?? undefined}
             icon={<InboxIcon />}
           />
           <Stat label="Published" value={publishedCount} icon={<GlobeIcon />} />
@@ -98,8 +99,8 @@ export default async function DashboardPage() {
           <InfoIcon />
           <span>
             {atSubmissionLimit
-              ? `You've reached the ${FREE_SUBMISSION_LIMIT}-submission limit — your forms have been closed to new responses.`
-              : `You've used all ${FREE_FORM_LIMIT} forms on the free plan.`}{" "}
+              ? `You've reached the ${quota.submissionLimit}-submission limit — your forms have been closed to new responses.`
+              : `You've used all ${quota.formLimit} forms on your current plan.`}{" "}
             <Link href="/pricing" className="font-semibold underline underline-offset-2 hover:text-brand-hover">
               Upgrade your plan
             </Link>

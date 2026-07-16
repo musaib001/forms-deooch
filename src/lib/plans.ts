@@ -127,3 +127,16 @@ export const PLANS: Plan[] = [
 export function getPlan(id: string): Plan {
   return PLANS.find((p) => p.id === id) ?? PLANS[0];
 }
+
+export type Quota = { formLimit: number | null; submissionLimit: number | null };
+
+// Owner/Member share unlimited, team-wide access regardless of the plan value
+// on their own profile row (plan billing applies to self-signup accounts).
+// Everyone else is metered against their plan's limits.
+export function quotaFor(profile: { role: string; plan: string }): Quota {
+  if (profile.role === "owner" || profile.role === "member") {
+    return { formLimit: null, submissionLimit: null };
+  }
+  const plan = getPlan(profile.plan);
+  return { formLimit: plan.formLimit, submissionLimit: plan.submissionLimit };
+}

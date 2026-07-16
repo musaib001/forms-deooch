@@ -3,7 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 import { getSessionProfile } from "@/lib/auth/session";
 import { createFormSchema } from "@/lib/forms/schema";
 import { newFormSlug } from "@/lib/forms/slug";
-import { FREE_FORM_LIMIT } from "@/lib/forms/limits";
+import { quotaFor } from "@/lib/plans";
 
 export async function GET() {
   const profile = await getSessionProfile();
@@ -30,14 +30,15 @@ export async function POST(request: Request) {
 
   const supabase = await createClient();
 
-  if (profile.role === "free") {
+  const quota = quotaFor(profile);
+  if (quota.formLimit !== null) {
     const { count } = await supabase
       .from("forms")
       .select("id", { count: "exact", head: true })
       .eq("created_by", profile.id);
-    if ((count ?? 0) >= FREE_FORM_LIMIT) {
+    if ((count ?? 0) >= quota.formLimit) {
       return NextResponse.json(
-        { error: `Free accounts are limited to ${FREE_FORM_LIMIT} forms.` },
+        { error: `Your plan is limited to ${quota.formLimit} forms. Upgrade to create more.` },
         { status: 403 }
       );
     }

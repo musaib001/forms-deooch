@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { createAdminClient } from "@/lib/supabase/admin";
 import type { Field } from "@/lib/forms/schema";
-import { FREE_SUBMISSION_LIMIT } from "@/lib/forms/limits";
+import { quotaFor } from "@/lib/plans";
 
 const submitSchema = z.object({
   answers: z.record(z.string(), z.union([z.string(), z.array(z.string())])),
@@ -70,20 +70,23 @@ function clientMeta(request: Request) {
   };
 }
 
-// Free accounts are capped at FREE_SUBMISSION_LIMIT submissions total,
-// across all of their forms. Once hit, auto-close every form they own so
-// respondents get a friendly "no longer accepting responses" message
-// instead of a raw error.
+// Self-signup accounts are capped at their plan's submission limit, across
+// all of their forms. Once hit, auto-close every form they own so respondents
+// get a friendly "no longer accepting responses" message instead of a raw
+// error. Owner/Member profiles have no cap (quotaFor returns null).
 async function closeFormsIfFreeAccountAtCap(
   admin: ReturnType<typeof createAdminClient>,
   ownerId: string
 ) {
   const { data: profile } = await admin
     .from("profiles")
-    .select("role")
+    .select("role, plan")
     .eq("id", ownerId)
     .single();
-  if (profile?.role !== "free") return;
+  if (!profile) return;
+
+  const quota = quotaFor(profile);
+  if (quota.submissionLimit === null) return;
 
   const { data: ownerForms } = await admin
     .from("forms")
@@ -97,7 +100,7 @@ async function closeFormsIfFreeAccountAtCap(
     .select("id", { count: "exact", head: true })
     .in("form_id", formIds);
 
-  if ((count ?? 0) >= FREE_SUBMISSION_LIMIT) {
+  if ((count ?? 0) >= quota.submissionLimit) {
     await admin
       .from("forms")
       .update({ status: "closed" })

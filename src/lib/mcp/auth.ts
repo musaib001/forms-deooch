@@ -1,7 +1,7 @@
 import { createAdminClient } from "@/lib/supabase/admin";
 import { hashToken } from "@/lib/auth/pat";
 
-export type McpActor = { id: string; email: string; role: string };
+export type McpActor = { id: string; email: string; role: string; plan: string };
 
 export async function resolveActor(request: Request): Promise<McpActor | null> {
   const auth = request.headers.get("authorization");
@@ -12,7 +12,7 @@ export async function resolveActor(request: Request): Promise<McpActor | null> {
 
   const { data: token } = await admin
     .from("api_tokens")
-    .select("id, user_id, revoked_at, profiles(id, email, role)")
+    .select("id, user_id, revoked_at, profiles(id, email, role, plan)")
     .eq("token_hash", hashToken(raw))
     .is("revoked_at", null)
     .maybeSingle();

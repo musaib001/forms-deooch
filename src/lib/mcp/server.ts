@@ -3,7 +3,7 @@ import { z } from "zod";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { fieldSchema, formStatusSchema } from "@/lib/forms/schema";
 import { newFormSlug } from "@/lib/forms/slug";
-import { FREE_FORM_LIMIT } from "@/lib/forms/limits";
+import { quotaFor } from "@/lib/plans";
 import type { McpActor } from "./auth";
 
 function publicUrl(slug: string) {
@@ -34,14 +34,15 @@ export function createMcpServer(actor: McpActor) {
       },
     },
     async ({ title, description, fields }) => {
-      if (!isTrusted) {
+      const quota = quotaFor(actor);
+      if (quota.formLimit !== null) {
         const { count } = await db
           .from("forms")
           .select("id", { count: "exact", head: true })
           .eq("created_by", actor.id);
-        if ((count ?? 0) >= FREE_FORM_LIMIT) {
+        if ((count ?? 0) >= quota.formLimit) {
           return textResult({
-            error: `Free accounts are limited to ${FREE_FORM_LIMIT} forms.`,
+            error: `Your plan is limited to ${quota.formLimit} forms. Upgrade to create more.`,
           });
         }
       }
