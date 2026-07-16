@@ -12,7 +12,7 @@ export default async function PortalLayout({
 
   return (
     <div className="flex min-h-screen flex-col">
-      <TopBar email={profile.email} role={profile.role} />
+      <TopBar email={profile.email} role={profile.role} plan={profile.plan} />
       <main className="flex-1 px-4 py-8 sm:px-6">
         <div className="mx-auto max-w-5xl">{children}</div>
       </main>

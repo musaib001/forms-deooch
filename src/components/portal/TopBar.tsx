@@ -10,9 +10,11 @@ type NavItem = { href: string; label: string };
 export function TopBar({
   email,
   role,
+  plan = "free",
 }: {
   email: string;
   role: string;
+  plan?: string;
 }) {
   const pathname = usePathname();
   const router = useRouter();
@@ -23,6 +25,7 @@ export function TopBar({
     { href: "/dashboard", label: "Forms" },
     ...(role === "owner" ? [{ href: "/settings/members", label: "Members" }] : []),
     { href: "/settings/tokens", label: "API Tokens" },
+    { href: "/support", label: "Support" },
   ];
 
   useEffect(() => {
@@ -85,7 +88,16 @@ export function TopBar({
           })}
         </nav>
 
-        <div ref={menuRef} className="relative ml-auto">
+        <div className="ml-auto flex items-center gap-3">
+        {plan === "free" && (
+          <Link
+            href="/pricing"
+            className="hidden h-8 items-center rounded-lg bg-brand px-3 text-sm font-semibold text-brand-foreground transition-colors hover:bg-brand-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:flex"
+          >
+            Upgrade
+          </Link>
+        )}
+        <div ref={menuRef} className="relative">
           <button
             onClick={() => setMenuOpen((o) => !o)}
             aria-expanded={menuOpen}
@@ -105,7 +117,26 @@ export function TopBar({
                 <p className="truncate text-sm font-medium text-foreground" title={email}>
                   {email}
                 </p>
+                <p className="mt-1.5 flex items-center gap-1.5 text-xs text-muted-foreground">
+                  <span className="rounded-full bg-brand-subtle px-2 py-0.5 font-semibold capitalize text-brand">
+                    {plan} plan
+                  </span>
+                  <Link
+                    href="/pricing"
+                    role="menuitem"
+                    className="font-medium text-brand hover:text-brand-hover"
+                  >
+                    View plans
+                  </Link>
+                </p>
               </div>
+              <Link
+                href="/support"
+                role="menuitem"
+                className="block w-full px-4 py-2.5 text-left text-sm font-medium text-foreground transition-colors hover:bg-muted focus-visible:bg-muted focus-visible:outline-none"
+              >
+                Support
+              </Link>
               <button
                 onClick={signOut}
                 role="menuitem"
@@ -115,6 +146,7 @@ export function TopBar({
               </button>
             </div>
           )}
+        </div>
         </div>
       </div>
     </header>

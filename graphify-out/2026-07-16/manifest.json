@@ -25,8 +25,8 @@
     "semantic_hash": ""
   },
   "src/app/(portal)/dashboard/page.tsx": {
-    "mtime": 1784204087.694153,
-    "ast_hash": "a08ca5be91801a8a0e21d6766eb98b7a",
+    "mtime": 1784182889.7279427,
+    "ast_hash": "6d1e85fe3b891198632169e6be1ce446",
     "semantic_hash": ""
   },
   "src/app/(portal)/forms/[formId]/page.tsx": {
@@ -35,8 +35,8 @@
     "semantic_hash": ""
   },
   "src/app/(portal)/forms/[formId]/submissions/page.tsx": {
-    "mtime": 1784203984.1320071,
-    "ast_hash": "db48c06d69054f800ed995dc831c311f",
+    "mtime": 1784185668.0789266,
+    "ast_hash": "0200ca6f3a634e2e0ba8c035910efc0a",
     "semantic_hash": ""
   },
   "src/app/(portal)/forms/new/page.tsx": {
@@ -45,8 +45,8 @@
     "semantic_hash": ""
   },
   "src/app/(portal)/layout.tsx": {
-    "mtime": 1784204056.3482907,
-    "ast_hash": "06f70cbcac73278f87b2ba30e267e242",
+    "mtime": 1784182833.722856,
+    "ast_hash": "e0f1c45643471c546d120229a5928c53",
     "semantic_hash": ""
   },
   "src/app/(portal)/settings/members/page.tsx": {
@@ -215,8 +215,8 @@
     "semantic_hash": ""
   },
   "src/components/marketing/MarketingNav.tsx": {
-    "mtime": 1784204130.2351937,
-    "ast_hash": "1553723011148e4c6fbfcdb8fcb46bac",
+    "mtime": 1784202754.335849,
+    "ast_hash": "dcfb2b684ecb9902747b28f2fbe292bb",
     "semantic_hash": ""
   },
   "src/components/marketing/PricingCards.tsx": {
@@ -225,8 +225,8 @@
     "semantic_hash": ""
   },
   "src/components/portal/TopBar.tsx": {
-    "mtime": 1784204047.0687344,
-    "ast_hash": "7df033d1566e61897271efa3469d505e",
+    "mtime": 1784182824.9265504,
+    "ast_hash": "034def82e5dff2925294dba53d8b3663",
     "semantic_hash": ""
   },
   "src/components/settings/MembersTable.tsx": {
@@ -240,8 +240,8 @@
     "semantic_hash": ""
   },
   "src/components/submissions/SubmissionsView.tsx": {
-    "mtime": 1784203973.6369462,
-    "ast_hash": "9bc0c6766dab62d67b4287eb28a96d19",
+    "mtime": 1784185993.458644,
+    "ast_hash": "b942b71673d84ad401dc89c08e59bd86",
     "semantic_hash": ""
   },
   "src/lib/auth/pat.ts": {
@@ -397,11 +397,6 @@
   "README.md": {
     "mtime": 1784134319.4634545,
     "ast_hash": "f15aaa42d5d299d091b1171097ea56ad",
-    "semantic_hash": ""
-  },
-  "src/app/(portal)/support/page.tsx": {
-    "mtime": 1784204116.8781998,
-    "ast_hash": "2679ca13b2ec8af7f24efd0b0a0abbd7",
     "semantic_hash": ""
   }
 }

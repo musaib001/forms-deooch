@@ -72,10 +72,12 @@ function Cell({ field, value }: { field: Field; value: string | string[] | undef
 
 export function SubmissionsView({
   formId,
+  formTitle,
   fields,
   submissions,
 }: {
   formId: string;
+  formTitle: string;
   fields: Field[];
   submissions: Submission[];
 }) {
@@ -128,9 +130,25 @@ export function SubmissionsView({
 
   return (
     <div className="flex flex-col gap-4">
-      {/* Toolbar */}
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <div className="flex flex-wrap items-center gap-2">
+      <div className="overflow-hidden rounded-2xl border border-border bg-card">
+        {/* Sheet tab band */}
+        <div className="flex items-center gap-2.5 bg-brand px-4 py-2.5">
+          <span className="flex h-6 w-6 items-center justify-center rounded-md bg-white/20 text-brand-foreground">
+            <GridIcon />
+          </span>
+          <span className="truncate text-sm font-semibold text-brand-foreground">
+            {formTitle}
+          </span>
+          <span className="ml-auto shrink-0 rounded-full bg-white/15 px-2.5 py-0.5 text-xs font-medium tabular-nums text-brand-foreground">
+            {filtered.length === submissions.length
+              ? `${submissions.length} ${submissions.length === 1 ? "entry" : "entries"}`
+              : `${filtered.length} of ${submissions.length} entries`}
+          </span>
+        </div>
+
+        {/* Toolbar */}
+        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border px-4 py-3">
+        <div className="flex flex-1 flex-wrap items-center gap-2">
           <div className="relative w-full max-w-xs">
             <svg
               className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground"
@@ -184,7 +202,7 @@ export function SubmissionsView({
       </div>
 
       {showFilters && choiceColumns.length > 0 && (
-        <div className="flex flex-wrap items-end gap-3 rounded-xl border border-border bg-card p-4">
+        <div className="flex flex-wrap items-end gap-3 border-b border-border bg-muted/30 px-4 py-3">
           {choiceColumns.map((field) => (
             <label key={field.id} className="flex flex-col gap-1 text-xs">
               <span className="font-semibold text-muted-foreground">{field.label}</span>
@@ -217,11 +235,17 @@ export function SubmissionsView({
       ) : filtered.length === 0 ? (
         <EmptyState title="No matches" body="No responses match your search or filters." />
       ) : (
-        <div className="overflow-x-auto rounded-2xl border border-border bg-card [scrollbar-width:thin]">
+        <div className="overflow-x-auto [scrollbar-width:thin]">
           <table className="w-full border-collapse text-left text-sm">
             <thead>
               <tr className="border-b border-border bg-muted/50 text-xs uppercase tracking-wide text-muted-foreground">
-                <th className="min-w-[150px] whitespace-nowrap px-4 py-3 font-semibold">Submitted</th>
+                <th className="w-12 whitespace-nowrap px-3 py-3 text-center font-semibold" aria-label="Row number">#</th>
+                <th className="min-w-[150px] whitespace-nowrap px-4 py-3 font-semibold">
+                  <span className="inline-flex items-center gap-1.5">
+                    <span aria-hidden className="flex h-4 w-4 items-center justify-center rounded bg-muted text-[10px] font-semibold leading-none text-muted-foreground">▦</span>
+                    Submitted
+                  </span>
+                </th>
                 <th className="min-w-[140px] whitespace-nowrap px-4 py-3 font-semibold">IP Address</th>
                 {columns.map((field) => (
                   <th key={field.id} className="min-w-[180px] whitespace-nowrap px-4 py-3 font-semibold">
@@ -242,6 +266,9 @@ export function SubmissionsView({
                     onClick={() => setSelectedIndex(i)}
                     className="group cursor-pointer border-b border-border last:border-0 transition-colors hover:bg-muted/40"
                   >
+                    <td className="w-12 whitespace-nowrap px-3 py-3 text-center text-xs tabular-nums text-muted-foreground/70">
+                      {i + 1}
+                    </td>
                     <td className="relative min-w-[150px] whitespace-nowrap px-4 py-3 text-muted-foreground">
                       {formatDate(s.submitted_at)}
                       <button
@@ -269,6 +296,7 @@ export function SubmissionsView({
           </table>
         </div>
       )}
+      </div>
 
       <SubmissionDrawer
         open={current !== null}
@@ -420,7 +448,7 @@ function Row({ label, children }: { label: string; children: React.ReactNode }) 
 
 function EmptyState({ title, body }: { title: string; body: string }) {
   return (
-    <div className="rounded-2xl border border-dashed border-border bg-card px-6 py-14 text-center">
+    <div className="px-6 py-14 text-center">
       <p className="text-sm font-medium text-foreground">{title}</p>
       <p className="mt-1 text-sm text-muted-foreground">{body}</p>
     </div>
@@ -439,6 +467,15 @@ function FieldTypeIcon({ type }: { type: FieldType }) {
     >
       {glyph[type]}
     </span>
+  );
+}
+
+function GridIcon() {
+  return (
+    <svg className="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" aria-hidden>
+      <rect x="3" y="3" width="18" height="18" rx="2" />
+      <path d="M3 9h18M3 15h18M9 3v18M15 3v18" />
+    </svg>
   );
 }
 

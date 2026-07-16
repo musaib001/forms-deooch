@@ -19,6 +19,5 @@
   "17": "next.config.ts",
   "18": "postcss.config.mjs",
   "19": "page.tsx",
-  "20": "vitest.config.ts",
-  "21": "page.tsx"
+  "20": "vitest.config.ts"
 }

@@ -43,9 +43,18 @@ export default async function DashboardPage() {
     <div>
       <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-foreground">
-            Forms
-          </h1>
+          <div className="flex items-center gap-2.5">
+            <h1 className="text-2xl font-bold tracking-tight text-foreground">
+              Forms
+            </h1>
+            <Link
+              href="/pricing"
+              title="View plans"
+              className="rounded-full bg-brand-subtle px-2.5 py-0.5 text-xs font-semibold capitalize text-brand transition-colors hover:bg-brand hover:text-brand-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            >
+              {profile?.plan ?? "free"} plan
+            </Link>
+          </div>
           <p className="mt-1 text-sm text-muted-foreground">
             Build forms in the portal or by asking Claude.
           </p>
@@ -86,9 +95,14 @@ export default async function DashboardPage() {
       {(atFormLimit || atSubmissionLimit) && (
         <p className="mb-6 flex items-center gap-2 rounded-lg border border-brand/30 bg-brand-subtle px-4 py-3 text-sm text-brand">
           <InfoIcon />
-          {atSubmissionLimit
-            ? `You've reached the ${FREE_SUBMISSION_LIMIT}-submission limit — your forms have been closed to new responses.`
-            : `You've used all ${FREE_FORM_LIMIT} forms on the free plan. Delete one to create another.`}
+          <span>
+            {atSubmissionLimit
+              ? `You've reached the ${FREE_SUBMISSION_LIMIT}-submission limit — your forms have been closed to new responses.`
+              : `You've used all ${FREE_FORM_LIMIT} forms on the free plan.`}{" "}
+            <Link href="/pricing" className="font-semibold underline underline-offset-2 hover:text-brand-hover">
+              Upgrade your plan
+            </Link>
+          </span>
         </p>
       )}
 

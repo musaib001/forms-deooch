@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
+import { formatDateTime } from "@/lib/date";
 import { SubmissionsView } from "@/components/submissions/SubmissionsView";
 
 export default async function FormSubmissionsPage({
@@ -38,10 +39,14 @@ export default async function FormSubmissionsPage({
         </h1>
         <p className="mt-0.5 text-sm text-muted-foreground">
           {count} {count === 1 ? "response" : "responses"}
+          {submissions?.[0] && (
+            <> · Last response {formatDateTime(submissions[0].submitted_at)}</>
+          )}
         </p>
       </div>
       <SubmissionsView
         formId={formId}
+        formTitle={form.title}
         fields={form.fields}
         submissions={submissions ?? []}
       />
