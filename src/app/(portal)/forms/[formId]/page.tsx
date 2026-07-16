@@ -1,9 +1,6 @@
 import { notFound } from "next/navigation";
-import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
-import { FormBuilder } from "@/components/forms/FormBuilder";
-import { DeleteFormButton } from "@/components/forms/DeleteFormButton";
-import { buttonSecondaryClass } from "@/lib/ui";
+import { FormStudio } from "@/components/builder/FormStudio";
 
 export default async function EditFormPage({
   params,
@@ -20,29 +17,5 @@ export default async function EditFormPage({
 
   if (!form) notFound();
 
-  return (
-    <div>
-      <Link
-        href="/dashboard"
-        className="mb-4 inline-block text-sm text-muted-foreground hover:text-foreground"
-      >
-        ← Back to forms
-      </Link>
-      <div className="mb-6 flex items-start justify-between gap-4">
-        <h1 className="text-2xl font-bold tracking-tight text-foreground">
-          {form.title}
-        </h1>
-        <div className="flex shrink-0 items-center gap-2">
-          <Link
-            href={`/forms/${form.id}/submissions`}
-            className={buttonSecondaryClass}
-          >
-            View submissions
-          </Link>
-          <DeleteFormButton formId={form.id} formTitle={form.title} />
-        </div>
-      </div>
-      <FormBuilder existing={form} />
-    </div>
-  );
+  return <FormStudio existing={form} />;
 }

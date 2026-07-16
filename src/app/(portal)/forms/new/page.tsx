@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { FormBuilder } from "@/components/forms/FormBuilder";
+import { FormStudio } from "@/components/builder/FormStudio";
 import { getSessionProfile } from "@/lib/auth/session";
 import { createClient } from "@/lib/supabase/server";
 import { FREE_FORM_LIMIT } from "@/lib/forms/limits";
@@ -33,18 +33,5 @@ export default async function NewFormPage() {
     }
   }
 
-  return (
-    <div>
-      <Link
-        href="/dashboard"
-        className="mb-4 inline-block text-sm text-muted-foreground hover:text-foreground"
-      >
-        ← Back to forms
-      </Link>
-      <h1 className="mb-6 text-2xl font-bold tracking-tight text-foreground">
-        New form
-      </h1>
-      <FormBuilder />
-    </div>
-  );
+  return <FormStudio />;
 }
