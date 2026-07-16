@@ -17,14 +17,16 @@ export type Submission = {
   respondent_meta: RespondentMeta;
 };
 
+// Solid pastel fill + near-black text: at grid density a chip has to read as a
+// discrete object, which a tinted-text chip doesn't do at 13px.
 const TAG_COLORS = [
-  "bg-indigo-100 text-indigo-700",
-  "bg-emerald-100 text-emerald-700",
-  "bg-amber-100 text-amber-700",
-  "bg-rose-100 text-rose-700",
-  "bg-sky-100 text-sky-700",
-  "bg-violet-100 text-violet-700",
-  "bg-teal-100 text-teal-700",
+  "bg-indigo-100 text-indigo-900",
+  "bg-emerald-100 text-emerald-900",
+  "bg-amber-100 text-amber-900",
+  "bg-rose-100 text-rose-900",
+  "bg-sky-100 text-sky-900",
+  "bg-violet-100 text-violet-900",
+  "bg-teal-100 text-teal-900",
 ];
 
 // Stable per-value colour so the same option reads the same across every row.
@@ -47,7 +49,7 @@ export function Tag({ value }: { value: string }) {
   return (
     <span
       className={
-        "inline-flex max-w-full truncate rounded-md px-2 py-0.5 text-xs font-medium " +
+        "inline-flex max-w-full shrink-0 truncate rounded px-2.5 py-1 text-[13px] font-medium leading-4 " +
         tagColor(value)
       }
     >
@@ -57,11 +59,13 @@ export function Tag({ value }: { value: string }) {
 }
 
 function Empty() {
-  return <span className="text-muted-foreground">—</span>;
+  return <span className="text-muted-foreground/70">—</span>;
 }
 
+// Links stay neutral at rest: a column of orange emails fights the toolbar's
+// primary actions for attention. Brand colour is the hover affordance only.
 const linkClass =
-  "truncate text-brand underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm";
+  "truncate text-foreground decoration-muted-foreground/40 underline underline-offset-2 hover:text-brand hover:decoration-brand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm";
 
 /** Renders one answer according to its field type. Used by both grid and drawer. */
 export function Cell({
@@ -78,7 +82,13 @@ export function Cell({
 
   if (isChoice(field)) {
     return (
-      <div className="flex flex-wrap gap-1">
+      // Grid rows are a fixed height, so chips clip rather than wrap; the
+      // drawer (multiline) is the place that shows every value.
+      <div
+        className={
+          "flex gap-1 " + (multiline ? "flex-wrap" : "flex-nowrap overflow-hidden")
+        }
+      >
         {values.map((v) => (
           <Tag key={v} value={v} />
         ))}
@@ -151,7 +161,7 @@ export function FieldTypeIcon({ type }: { type: FieldType }) {
   return (
     <span
       aria-hidden
-      className="flex h-4 w-4 shrink-0 items-center justify-center rounded bg-muted text-[10px] font-semibold leading-none text-muted-foreground"
+      className="flex h-4 w-4 shrink-0 items-center justify-center text-[11px] leading-none text-muted-foreground"
     >
       {glyph[type]}
     </span>

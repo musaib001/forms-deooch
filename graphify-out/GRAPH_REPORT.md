@@ -1,16 +1,16 @@
 # Graph Report - deoochform  (2026-07-16)
 
 ## Corpus Check
-- 98 files · ~25,412 words
+- 97 files · ~25,587 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 415 nodes · 734 edges · 24 communities (18 shown, 6 thin omitted)
+- 416 nodes · 747 edges · 25 communities (19 shown, 6 thin omitted)
 - Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 10 edges (avg confidence: 0.68)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `c7749c9f`
+- Built from commit: `e57d625e`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -34,6 +34,7 @@
 - eslint.config.mjs
 - next.config.ts
 - postcss.config.mjs
+- page.tsx
 - route.ts
 
 ## God Nodes (most connected - your core abstractions)
@@ -42,32 +43,32 @@
 3. `compilerOptions` - 16 edges
 4. `Field` - 15 edges
 5. `createAdminClient()` - 15 edges
-6. `formatDate()` - 10 edges
-7. `isInputField()` - 9 edges
-8. `GET()` - 7 edges
-9. `Container()` - 7 edges
-10. `buildSubmissionsCsv()` - 7 edges
+6. `quotaFor()` - 12 edges
+7. `formatDate()` - 10 edges
+8. `isInputField()` - 9 edges
+9. `createMcpServer()` - 8 edges
+10. `GET()` - 7 edges
 
 ## Surprising Connections (you probably didn't know these)
+- `EditFormPage()` --calls--> `createClient()`  [EXTRACTED]
+  src/app/(portal)/forms/[formId]/page.tsx → src/lib/supabase/server.ts
 - `PortalLayout()` --calls--> `getSessionProfile`  [EXTRACTED]
   src/app/(portal)/layout.tsx → src/lib/auth/session.ts
+- `MembersPage()` --calls--> `getSessionProfile`  [EXTRACTED]
+  src/app/(portal)/settings/members/page.tsx → src/lib/auth/session.ts
 - `Home()` --calls--> `getSessionProfile`  [EXTRACTED]
   src/app/page.tsx → src/lib/auth/session.ts
-- `PublicFormRenderer()` --indirect_call--> `isInputField()`  [INFERRED]
-  src/components/forms/PublicFormRenderer.tsx → src/lib/forms/schema.ts
-- `SubmissionsView()` --indirect_call--> `isInputField()`  [INFERRED]
-  src/components/submissions/SubmissionsView.tsx → src/lib/forms/schema.ts
-- `DashboardPage()` --calls--> `formatDate()`  [EXTRACTED]
-  src/app/(portal)/dashboard/page.tsx → src/lib/date.ts
+- `FormStudio()` --indirect_call--> `field()`  [INFERRED]
+  src/components/builder/FormStudio.tsx → src/lib/forms/validation.test.ts
 
 ## Import Cycles
 - None detected.
 
-## Communities (24 total, 6 thin omitted)
+## Communities (25 total, 6 thin omitted)
 
 ### Community 0 - "createClient"
-Cohesion: 0.07
-Nodes (33): DELETE(), GET(), Params, PATCH(), GET(), Params, DELETE(), Params (+25 more)
+Cohesion: 0.15
+Nodes (24): DELETE(), GET(), Params, PATCH(), GET(), Params, DELETE(), Params (+16 more)
 
 ### Community 1 - "SubmissionsView.tsx"
 Cohesion: 0.07
@@ -78,12 +79,12 @@ Cohesion: 0.09
 Nodes (10): PortalLayout(), AuthShell(), FEATURES, EmailAuthForm(), Mode, GoogleButton(), PasswordField(), NavItem (+2 more)
 
 ### Community 3 - "server.ts"
-Cohesion: 0.10
-Nodes (27): clientMeta(), closeFormsIfFreeAccountAtCap(), Params, POST(), submitSchema, handle(), createTokenSchema, GET() (+19 more)
+Cohesion: 0.13
+Nodes (21): handle(), createTokenSchema, POST(), GET(), GET(), PublicFormPage(), POST(), readParams() (+13 more)
 
 ### Community 4 - "schema.ts"
 Cohesion: 0.08
-Nodes (26): Device, DEVICE_WIDTHS, Doc, ExistingForm, FormStudio(), SaveState, Doc, Inspector() (+18 more)
+Nodes (24): Device, DEVICE_WIDTHS, Doc, ExistingForm, FormStudio(), SaveState, Doc, Inspector() (+16 more)
 
 ### Community 5 - "devDependencies"
 Cohesion: 0.07
@@ -98,12 +99,12 @@ Cohesion: 0.07
 Nodes (29): @dnd-kit/core, @dnd-kit/sortable, @dnd-kit/utilities, exceljs, lucide-react, @modelcontextprotocol/sdk, nanoid, next (+21 more)
 
 ### Community 8 - "page.tsx"
-Cohesion: 0.20
-Nodes (10): FEATURES, Home(), metadata, MarketingFooter(), MarketingNav(), PricingCards(), getPlan(), Plan (+2 more)
+Cohesion: 0.13
+Nodes (17): clientMeta(), closeFormsIfFreeAccountAtCap(), Params, POST(), submitSchema, FEATURES, Home(), metadata (+9 more)
 
 ### Community 9 - "PublicFormRenderer.tsx"
-Cohesion: 0.17
-Nodes (12): CheckboxGroup(), FieldControl(), Value, Item, MembersTable(), Field, FieldValue, isEmpty() (+4 more)
+Cohesion: 0.21
+Nodes (13): FormPreviewModal(), CheckboxGroup(), FieldControl(), PublicFormRenderer(), Value, Field, FieldValue, isEmpty() (+5 more)
 
 ### Community 10 - "MembersTable.tsx"
 Cohesion: 0.15
@@ -121,24 +122,28 @@ Nodes (3): geistMono, jakarta, metadata
 Cohesion: 0.50
 Nodes (3): Deploy on Vercel, Getting Started, Learn More
 
+### Community 21 - "page.tsx"
+Cohesion: 0.08
+Nodes (11): DashboardPage(), FormRow, responseCount(), STATUS_STYLES, EditFormPage(), MembersPage(), FAQS, metadata (+3 more)
+
 ## Knowledge Gaps
-- **113 isolated node(s):** `eslintConfig`, `nextConfig`, `name`, `version`, `private` (+108 more)
+- **114 isolated node(s):** `eslintConfig`, `nextConfig`, `name`, `version`, `private` (+109 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **6 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `getSessionProfile` connect `createClient` to `page.tsx`, `EmailAuthForm.tsx`, `MembersTable.tsx`, `server.ts`?**
-  _High betweenness centrality (0.080) - this node is a cross-community bridge._
-- **Why does `createClient()` connect `createClient` to `SubmissionsView.tsx`, `MembersTable.tsx`, `server.ts`?**
+- **Why does `getSessionProfile` connect `createClient` to `EmailAuthForm.tsx`, `server.ts`, `page.tsx`, `MembersTable.tsx`, `page.tsx`?**
+  _High betweenness centrality (0.067) - this node is a cross-community bridge._
+- **Why does `createClient()` connect `createClient` to `SubmissionsView.tsx`, `MembersTable.tsx`, `server.ts`, `page.tsx`?**
   _High betweenness centrality (0.048) - this node is a cross-community bridge._
-- **Why does `Field` connect `PublicFormRenderer.tsx` to `SubmissionsView.tsx`, `MembersTable.tsx`, `server.ts`, `schema.ts`?**
-  _High betweenness centrality (0.041) - this node is a cross-community bridge._
+- **Why does `Field` connect `PublicFormRenderer.tsx` to `page.tsx`, `SubmissionsView.tsx`, `MembersTable.tsx`, `schema.ts`?**
+  _High betweenness centrality (0.042) - this node is a cross-community bridge._
 - **What connects `eslintConfig`, `nextConfig`, `name` to the rest of the system?**
-  _113 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _114 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `createClient` be split into smaller, more focused modules?**
-  _Cohesion score 0.07086197778952935 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.146218487394958 - nodes in this community are weakly interconnected._
 - **Should `SubmissionsView.tsx` be split into smaller, more focused modules?**
   _Cohesion score 0.06636500754147813 - nodes in this community are weakly interconnected._
 - **Should `EmailAuthForm.tsx` be split into smaller, more focused modules?**
