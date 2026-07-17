@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Container } from "@/components/portal/Container";
 
-export const metadata: Metadata = { title: "Connect to Claude — deoochform" };
+export const metadata: Metadata = { title: "Connect an AI — deoochform" };
 
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://app.deooch.com";
 const MCP_URL = `${APP_URL}/api/mcp`;
@@ -61,8 +61,8 @@ const FAQS = [
     a: "Only what the six tools expose: your forms and their responses. Claude can create and edit forms and read submissions. It can't touch billing, members, or other workspaces.",
   },
   {
-    q: "Does this work with Claude Desktop or claude.ai?",
-    a: `Yes — any MCP client that supports remote HTTP servers. Add ${MCP_URL} as a custom connector and sign in when prompted.`,
+    q: "Does this work with ChatGPT, Gemini, or other AI assistants?",
+    a: `Yes — any MCP client that supports remote HTTP servers, including Claude Desktop, claude.ai, ChatGPT, Gemini, and DeepSeek. Add ${MCP_URL} as a custom connector and sign in when prompted.`,
   },
   {
     q: "How do I disconnect?",
@@ -80,10 +80,11 @@ export default function ConnectPage() {
       <div className="mx-auto max-w-3xl">
         <div className="mb-8">
           <h1 className="text-2xl font-bold tracking-tight text-foreground">
-            Connect to Claude
+            Connect an AI
           </h1>
           <p className="mt-1 text-sm text-muted-foreground">
-            Build forms and read responses by asking Claude, straight from your
+            Build forms and read responses by asking Claude, ChatGPT, Gemini,
+            DeepSeek, or any MCP-compatible assistant, straight from your
             terminal. Takes about a minute.
           </p>
         </div>
@@ -184,9 +185,9 @@ export default function ConnectPage() {
             Other MCP clients
           </h2>
           <p className="mb-4 text-sm text-muted-foreground">
-            Claude Desktop, claude.ai, and anything else that speaks remote MCP over
-            HTTP work the same way. Add a custom connector pointing at this URL and
-            sign in when prompted:
+            Claude Desktop, claude.ai, ChatGPT, Gemini, DeepSeek, and anything else
+            that speaks remote MCP over HTTP work the same way. Add a custom
+            connector pointing at this URL and sign in when prompted:
           </p>
           <Terminal lines={[{ text: MCP_URL }]} />
         </section>
@@ -339,7 +340,7 @@ function Terminal({
 
 function FlowDiagram() {
   const steps = [
-    { label: "You ask Claude", sub: '"Build me a signup form"' },
+    { label: "You ask your AI", sub: '"Build me a signup form"' },
     { label: "MCP over HTTPS", sub: "signed in as you" },
     { label: "Form in deoochform", sub: "with a public link" },
   ];

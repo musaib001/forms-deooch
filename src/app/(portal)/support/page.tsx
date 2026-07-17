@@ -19,7 +19,7 @@ const FAQS = [
   },
   {
     q: "How do I build forms with AI?",
-    a: "Connect Claude — or any MCP-compatible assistant — to your account, then just describe the form you want and it appears in your dashboard. The Connect to Claude page walks through setup, troubleshooting, and common errors.",
+    a: "Connect Claude, ChatGPT, Gemini, DeepSeek, or any MCP-compatible assistant to your account, then just describe the form you want and it appears in your dashboard. The Connect an AI page walks through setup, troubleshooting, and common errors.",
   },
   {
     q: "How do I invite teammates?",
@@ -51,7 +51,7 @@ export default function SupportPage() {
             <PlugIcon />
           </span>
           <p className="mt-3 text-sm font-semibold text-foreground group-hover:text-brand">
-            Connect to Claude
+            Connect an AI
           </p>
           <p className="mt-0.5 text-sm text-muted-foreground">
             Set up the MCP connection and build forms by asking.
