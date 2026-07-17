@@ -1,5 +1,17 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Architecture
+
+![deooch form builder architecture: Google OAuth via Supabase Auth, Next.js dashboard and form studio, Supabase Postgres as source of truth, public form renderer for respondents, submissions/export, and an MCP server for AI agent access](public/docs/architecture-flow.gif)
+
+- **Creator flow** — sign in with Google via Supabase Auth → build forms in the Next.js/React Form Studio → forms are saved to Supabase Postgres.
+- **Data layer** — Supabase Postgres is the source of truth (forms, fields, tokens, RLS policies).
+- **Respondent flow** — anyone with the link opens the public `/f/[slug]` form (no login) and submits, which writes straight to Supabase.
+- **Back to the creator** — submissions show up live in the dashboard, exportable as CSV/XLSX.
+- **Automation** — an MCP server exposes forms and submissions over API tokens so AI agents can create forms or read responses programmatically.
+
+Stack: Next.js 16, React 19, TypeScript, Tailwind CSS, Supabase (Postgres + Auth), deployed on Vercel.
+
 ## Getting Started
 
 First, run the development server:

@@ -103,12 +103,12 @@ export default async function DashboardPage({
   return (
     <Container>
       <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
-        <div className="flex items-center gap-2.5">
-          <h1 className="text-2xl font-bold tracking-tight text-foreground">Forms</h1>
+        <div className="flex items-center gap-3">
+          <h1 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">Forms</h1>
           <Link
             href="/pricing"
             title="View plans"
-            className="rounded-full bg-brand-subtle px-2.5 py-0.5 text-xs font-semibold capitalize text-brand transition-colors hover:bg-brand hover:text-brand-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            className="rounded-full bg-brand-subtle px-3 py-1 text-xs font-semibold capitalize text-brand shadow-sm transition-colors hover:bg-brand hover:text-brand-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           >
             {profile?.plan ?? "free"} plan
           </Link>
@@ -121,7 +121,7 @@ export default async function DashboardPage({
             New form
           </span>
         ) : (
-          <Link href="/forms/new" className={buttonPrimaryClass}>
+          <Link href="/forms/new" className={buttonPrimaryClass + " shadow-sm"}>
             <PlusIcon />
             New form
           </Link>
@@ -167,7 +167,7 @@ export default async function DashboardPage({
               )}
             </div>
           ) : (
-            <div className="overflow-hidden rounded-2xl border border-border bg-card">
+            <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
               {forms.map((form) => (
                 <FormRow key={form.id} form={form} view={view} />
               ))}

@@ -55,13 +55,13 @@ export function TopBar({
   const initial = email.charAt(0).toUpperCase();
 
   return (
-    <header className="sticky top-0 z-40 border-b border-border bg-card/80 backdrop-blur">
-      <div className="mx-auto flex h-14 max-w-5xl items-center gap-1 px-4 sm:px-6">
+    <header className="sticky top-0 z-40 bg-slate-900">
+      <div className="mx-auto flex h-14 max-w-6xl items-center gap-1 px-4 sm:px-6">
         <Link href="/dashboard" className="mr-4 flex items-center gap-2">
           <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-brand text-sm font-bold text-brand-foreground">
             d
           </span>
-          <span className="hidden text-base font-bold tracking-tight text-foreground sm:inline">
+          <span className="hidden text-base font-bold tracking-tight text-white sm:inline">
             deoochform
           </span>
         </Link>
@@ -78,8 +78,8 @@ export function TopBar({
                 className={
                   "rounded-lg px-3 py-1.5 text-sm font-medium transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring " +
                   (active
-                    ? "bg-brand-subtle text-brand"
-                    : "text-muted-foreground hover:bg-muted hover:text-foreground")
+                    ? "bg-white/10 text-white"
+                    : "text-slate-300 hover:bg-white/5 hover:text-white")
                 }
               >
                 {item.label}
@@ -92,7 +92,7 @@ export function TopBar({
         {plan === "free" && (
           <Link
             href="/pricing"
-            className="hidden h-8 items-center rounded-lg bg-brand px-3 text-sm font-semibold text-brand-foreground transition-colors hover:bg-brand-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:flex"
+            className="hidden h-8 items-center rounded-lg bg-brand px-3 text-sm font-semibold text-brand-foreground shadow-sm transition-colors hover:bg-brand-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:flex"
           >
             Upgrade
           </Link>
@@ -102,7 +102,7 @@ export function TopBar({
             onClick={() => setMenuOpen((o) => !o)}
             aria-expanded={menuOpen}
             aria-haspopup="menu"
-            className="flex h-8 w-8 items-center justify-center rounded-full bg-foreground text-sm font-semibold text-background transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card"
+            className="flex h-8 w-8 items-center justify-center rounded-full bg-brand text-sm font-semibold text-brand-foreground ring-2 ring-white/20 transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
           >
             {initial}
           </button>
