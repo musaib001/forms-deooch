@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans, Geist_Mono } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 const jakarta = Plus_Jakarta_Sans({
@@ -31,6 +32,7 @@ export default function RootLayout({
       {/* Extensions (Grammarly et al) inject data-* onto body before hydration. */}
       <body className="min-h-full flex flex-col" suppressHydrationWarning>
         {children}
+        <Analytics />
       </body>
     </html>
   );
