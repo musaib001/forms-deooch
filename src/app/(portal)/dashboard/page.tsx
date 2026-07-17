@@ -102,9 +102,9 @@ export default async function DashboardPage({
 
   return (
     <Container>
-      <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
+      <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
         <div className="flex items-center gap-3">
-          <h1 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">Forms</h1>
+          <h1 className="text-2xl font-bold tracking-tight text-foreground sm:text-[1.75rem]">Forms</h1>
           <Link
             href="/pricing"
             title="View plans"

@@ -195,8 +195,8 @@
     "semantic_hash": ""
   },
   "src/components/forms/PublicFormRenderer.tsx": {
-    "mtime": 1784228770.9200542,
-    "ast_hash": "38cb534b591c268bf47ee0aca1105424",
+    "mtime": 1784230360.0411327,
+    "ast_hash": "814f4f52ca8313583f63acb340653f9e",
     "semantic_hash": ""
   },
   "src/components/marketing/MarketingNav.tsx": {
@@ -375,8 +375,8 @@
     "semantic_hash": ""
   },
   "README.md": {
-    "mtime": 1784134319.4634545,
-    "ast_hash": "f15aaa42d5d299d091b1171097ea56ad",
+    "mtime": 1784271597.9129057,
+    "ast_hash": "75c5a1f0251bb27bb0849086cb6a6cd0",
     "semantic_hash": ""
   },
   "src/app/(portal)/support/page.tsx": {
@@ -507,6 +507,11 @@
   "supabase/migrations/0009_workspace_organisation.sql": {
     "mtime": 1784228916.312377,
     "ast_hash": "c4e51d2b100d37ce80964f84c30c6b7e",
+    "semantic_hash": ""
+  },
+  "public/docs/architecture-flow.gif": {
+    "mtime": 1784271586.7963285,
+    "ast_hash": "f177bebd0fe782f817fa7e0674bd6bd5",
     "semantic_hash": ""
   }
 }

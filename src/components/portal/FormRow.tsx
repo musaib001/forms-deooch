@@ -72,7 +72,7 @@ export function FormRow({ form, view }: { form: FormListItem; view: ViewId }) {
   return (
     <div
       className={
-        "group flex items-center gap-3 border-b border-border px-3 py-3 transition-colors last:border-0 hover:bg-muted/60 " +
+        "group flex items-center gap-3 border-b border-border px-4 py-3.5 transition-colors last:border-0 hover:bg-muted/60 " +
         (busy || pending ? "opacity-50" : "")
       }
     >
@@ -94,7 +94,7 @@ export function FormRow({ form, view }: { form: FormListItem; view: ViewId }) {
         />
       </button>
 
-      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-brand-subtle text-brand">
+      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand-subtle text-brand shadow-sm">
         <DocIcon />
       </span>
 

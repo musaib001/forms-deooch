@@ -25,8 +25,8 @@
     "semantic_hash": ""
   },
   "src/app/(portal)/dashboard/page.tsx": {
-    "mtime": 1784229163.3217113,
-    "ast_hash": "90f56e5f2890e47a5726d30ec19063d5",
+    "mtime": 1784274064.012586,
+    "ast_hash": "69868f1b67446838357bf52053c1a532",
     "semantic_hash": ""
   },
   "src/app/(portal)/forms/[formId]/page.tsx": {
@@ -210,8 +210,8 @@
     "semantic_hash": ""
   },
   "src/components/portal/TopBar.tsx": {
-    "mtime": 1784204047.0687344,
-    "ast_hash": "7df033d1566e61897271efa3469d505e",
+    "mtime": 1784273220.6725357,
+    "ast_hash": "33780face2a8821d41e0b844eb65c0f5",
     "semantic_hash": ""
   },
   "src/components/settings/MembersTable.tsx": {
@@ -490,13 +490,13 @@
     "semantic_hash": ""
   },
   "src/components/portal/FormRow.tsx": {
-    "mtime": 1784229132.2463837,
-    "ast_hash": "4f8f0158f4fff0cb1c308e86d722395d",
+    "mtime": 1784274055.7335324,
+    "ast_hash": "a792ad6a9f148fcbba9a0c0216fe805c",
     "semantic_hash": ""
   },
   "src/components/portal/WorkspaceSidebar.tsx": {
-    "mtime": 1784229101.5728297,
-    "ast_hash": "01d24ab8012abbf8b3d835f74c4f3d78",
+    "mtime": 1784274043.4245431,
+    "ast_hash": "ab99e6784cec65a046f439e7c88c8c61",
     "semantic_hash": ""
   },
   "src/lib/forms/address.ts": {
@@ -510,8 +510,8 @@
     "semantic_hash": ""
   },
   "public/docs/architecture-flow.gif": {
-    "mtime": 1784271586.7963285,
-    "ast_hash": "f177bebd0fe782f817fa7e0674bd6bd5",
+    "mtime": 1784272215.1306643,
+    "ast_hash": "cae198e202ecc05f1e89d2c6023e3394",
     "semantic_hash": ""
   }
 }
