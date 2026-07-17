@@ -9,10 +9,12 @@ type NavItem = { href: string; label: string };
 
 export function TopBar({
   email,
+  fullName,
   role,
   plan = "free",
 }: {
   email: string;
+  fullName?: string | null;
   role: string;
   plan?: string;
 }) {
@@ -24,7 +26,7 @@ export function TopBar({
   const nav: NavItem[] = [
     { href: "/dashboard", label: "Forms" },
     ...(role === "owner" ? [{ href: "/settings/members", label: "Members" }] : []),
-    { href: "/settings/tokens", label: "API Tokens" },
+    { href: "/settings/tokens", label: "Connected apps" },
     { href: "/support", label: "Support" },
   ];
 
@@ -52,7 +54,9 @@ export function TopBar({
     router.refresh();
   }
 
-  const initial = email.charAt(0).toUpperCase();
+  // Pre-name accounts have full_name null and fall back to email.
+  const displayName = fullName?.trim() || email;
+  const initial = displayName.charAt(0).toUpperCase();
 
   return (
     <header className="sticky top-0 z-40 bg-slate-900">
@@ -114,9 +118,14 @@ export function TopBar({
             >
               <div className="border-b border-border px-4 py-3">
                 <p className="text-xs text-muted-foreground">Signed in as</p>
-                <p className="truncate text-sm font-medium text-foreground" title={email}>
-                  {email}
+                <p className="truncate text-sm font-medium text-foreground" title={displayName}>
+                  {displayName}
                 </p>
+                {fullName?.trim() && (
+                  <p className="truncate text-xs text-muted-foreground" title={email}>
+                    {email}
+                  </p>
+                )}
                 <p className="mt-1.5 flex items-center gap-1.5 text-xs text-muted-foreground">
                   <span className="rounded-full bg-brand-subtle px-2 py-0.5 font-semibold capitalize text-brand">
                     {plan} plan

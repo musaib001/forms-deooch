@@ -31,6 +31,12 @@ export async function GET(request: Request) {
 
   const admin = createAdminClient();
 
+  // Google returns full_name; the email signup form writes the same key via
+  // signUp options.data. Null when neither supplied one — TopBar falls back
+  // to email.
+  const fullName: string | null =
+    user.user_metadata?.full_name ?? user.user_metadata?.name ?? null;
+
   const { data: existingProfile } = await admin
     .from("profiles")
     .select("id")
@@ -44,7 +50,7 @@ export async function GET(request: Request) {
     if (isOwner) {
       await admin
         .from("profiles")
-        .insert({ id: user.id, email: user.email, role: "owner" });
+        .insert({ id: user.id, email: user.email, role: "owner", full_name: fullName });
     } else {
       // Trusted members are promoted via an owner invite. Anyone else who
       // signs in with Google gets a capped, self-scoped 'free' account.
@@ -57,12 +63,12 @@ export async function GET(request: Request) {
       if (invite && !invite.accepted) {
         await admin
           .from("profiles")
-          .insert({ id: user.id, email: user.email, role: "member" });
+          .insert({ id: user.id, email: user.email, role: "member", full_name: fullName });
         await admin.from("invites").update({ accepted: true }).eq("id", invite.id);
       } else {
         await admin
           .from("profiles")
-          .insert({ id: user.id, email: user.email, role: "free" });
+          .insert({ id: user.id, email: user.email, role: "free", full_name: fullName });
       }
     }
   }

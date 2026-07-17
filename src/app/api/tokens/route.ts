@@ -1,8 +1,6 @@
 import { NextResponse } from "next/server";
-import { z } from "zod";
 import { createClient } from "@/lib/supabase/server";
 import { getSessionProfile } from "@/lib/auth/session";
-import { generateToken } from "@/lib/auth/pat";
 
 export async function GET() {
   const profile = await getSessionProfile();
@@ -18,25 +16,6 @@ export async function GET() {
   return NextResponse.json({ tokens: data });
 }
 
-const createTokenSchema = z.object({ name: z.string().min(1) });
-
-export async function POST(request: Request) {
-  const profile = await getSessionProfile();
-  if (!profile) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-
-  const body = createTokenSchema.safeParse(await request.json());
-  if (!body.success) {
-    return NextResponse.json({ error: body.error.flatten() }, { status: 400 });
-  }
-
-  const { raw, hash } = generateToken();
-  const supabase = await createClient();
-  const { data, error } = await supabase
-    .from("api_tokens")
-    .insert({ user_id: profile.id, name: body.data.name, token_hash: hash })
-    .select("id, name, created_at")
-    .single();
-
-  if (error) return NextResponse.json({ error: error.message }, { status: 500 });
-  return NextResponse.json({ token: { ...data, raw } }, { status: 201 });
-}
+// No POST: tokens are minted only by /token (the OAuth code exchange), so the
+// browser email login is the sole way to authorize a connector. Hand-minted
+// PATs would let a client skip that login entirely.

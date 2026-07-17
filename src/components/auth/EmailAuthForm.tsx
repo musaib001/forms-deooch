@@ -11,16 +11,25 @@ type Mode = "login" | "signup";
 
 export function EmailAuthForm({ mode, next }: { mode: Mode; next?: string }) {
   const router = useRouter();
+  const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirm, setConfirm] = useState("");
+  const [nameError, setNameError] = useState<string>();
   const [emailError, setEmailError] = useState<string>();
   const [passwordError, setPasswordError] = useState<string>();
+  const [confirmError, setConfirmError] = useState<string>();
   const [formError, setFormError] = useState<string>();
   const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
 
   function validate() {
     let ok = true;
+    if (mode === "signup" && !fullName.trim()) {
+      setNameError("Enter your name.");
+      ok = false;
+    } else setNameError(undefined);
+
     if (!isValidEmail(email)) {
       setEmailError("Enter a valid email address.");
       ok = false;
@@ -33,6 +42,11 @@ export function EmailAuthForm({ mode, next }: { mode: Mode; next?: string }) {
       setPasswordError("Enter your password.");
       ok = false;
     } else setPasswordError(undefined);
+
+    if (mode === "signup" && confirm !== password) {
+      setConfirmError("Passwords do not match.");
+      ok = false;
+    } else setConfirmError(undefined);
 
     return ok;
   }
@@ -50,6 +64,8 @@ export function EmailAuthForm({ mode, next }: { mode: Mode; next?: string }) {
         email,
         password,
         options: {
+          // Read back in /auth/callback to seed profiles.full_name.
+          data: { full_name: fullName.trim() },
           emailRedirectTo: next
             ? `${window.location.origin}/auth/callback?next=${encodeURIComponent(next)}`
             : `${window.location.origin}/auth/callback`,
@@ -115,6 +131,31 @@ export function EmailAuthForm({ mode, next }: { mode: Mode; next?: string }) {
         </p>
       )}
 
+      {mode === "signup" && (
+        <div className="flex flex-col gap-1.5">
+          <label htmlFor="full-name" className="text-sm font-semibold text-foreground">
+            Name
+          </label>
+          <input
+            id="full-name"
+            type="text"
+            autoFocus
+            autoComplete="name"
+            placeholder="Ada Lovelace"
+            value={fullName}
+            onChange={(e) => setFullName(e.target.value)}
+            aria-invalid={nameError ? "true" : undefined}
+            aria-describedby={nameError ? "full-name-error" : undefined}
+            className="h-11 w-full rounded-lg border border-input bg-card px-3.5 text-[15px] text-foreground outline-none transition-[border-color,box-shadow] duration-150 placeholder:text-muted-foreground/70 focus-visible:border-brand focus-visible:ring-2 focus-visible:ring-ring/40 aria-[invalid=true]:border-destructive"
+          />
+          {nameError && (
+            <p id="full-name-error" role="alert" className="text-[13px] font-medium text-destructive">
+              {nameError}
+            </p>
+          )}
+        </div>
+      )}
+
       <div className="flex flex-col gap-1.5">
         <label htmlFor="email" className="text-sm font-semibold text-foreground">
           Email
@@ -122,7 +163,7 @@ export function EmailAuthForm({ mode, next }: { mode: Mode; next?: string }) {
         <input
           id="email"
           type="email"
-          autoFocus
+          autoFocus={mode === "login"}
           autoComplete="email"
           spellCheck={false}
           placeholder="you@example.com"
@@ -148,6 +189,17 @@ export function EmailAuthForm({ mode, next }: { mode: Mode; next?: string }) {
         error={passwordError}
         hint={mode === "signup" ? "At least 8 characters." : undefined}
       />
+
+      {mode === "signup" && (
+        <PasswordField
+          id="confirm"
+          label="Confirm password"
+          value={confirm}
+          onChange={setConfirm}
+          autoComplete="new-password"
+          error={confirmError}
+        />
+      )}
 
       {mode === "login" && (
         <Link

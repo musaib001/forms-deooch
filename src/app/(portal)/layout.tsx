@@ -14,7 +14,12 @@ export default async function PortalLayout({
     // h-screen + min-h-0 (not min-h-screen) so a full-bleed child can claim the
     // exact remaining viewport height and scroll internally.
     <div className="flex h-screen flex-col">
-      <TopBar email={profile.email} role={profile.role} plan={profile.plan} />
+      <TopBar
+        email={profile.email}
+        fullName={profile.full_name}
+        role={profile.role}
+        plan={profile.plan}
+      />
       <main className="min-h-0 flex-1 overflow-y-auto">{children}</main>
     </div>
   );

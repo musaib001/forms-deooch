@@ -10,6 +10,7 @@ const DEV_BYPASS =
 const DEV_PROFILE = {
   id: "00000000-0000-0000-0000-000000000000",
   email: "dev@localhost",
+  full_name: "Dev User",
   role: "owner",
   plan: "gold",
 };
@@ -26,7 +27,7 @@ export const getSessionProfile = cache(async () => {
 
   const { data: profile } = await supabase
     .from("profiles")
-    .select("id, email, role, plan")
+    .select("id, email, role, plan, full_name")
     .eq("id", user.id)
     .single();
 
