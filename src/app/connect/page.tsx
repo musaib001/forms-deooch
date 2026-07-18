@@ -7,7 +7,7 @@ import { TopBar } from "@/components/portal/TopBar";
 import { MarketingNav, MarketingFooter } from "@/components/marketing/MarketingNav";
 
 export const metadata: Metadata = {
-  title: "MCP connectors — deoochform",
+  title: "MCP connectors",
   description:
     "Connect any MCP-compatible AI assistant and build forms by describing them.",
 };

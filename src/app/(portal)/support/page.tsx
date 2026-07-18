@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Container } from "@/components/portal/Container";
 
-export const metadata: Metadata = { title: "Support — deoochform" };
+export const metadata: Metadata = { title: "Support" };
 
 const FAQS = [
   {

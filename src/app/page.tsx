@@ -58,12 +58,33 @@ const STEPS = [
   { n: "3", title: "Read the results", body: "Watch responses land in a table you can search, filter, and export." },
 ];
 
+const SOFTWARE_JSON_LD = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "deoochform",
+  applicationCategory: "BusinessApplication",
+  operatingSystem: "Web",
+  url: SITE_URL,
+  description:
+    "AI-native form builder. Describe a form in plain English and it builds itself; collect responses in one place and export to Excel.",
+  offers: {
+    "@type": "Offer",
+    price: "0",
+    priceCurrency: "USD",
+    description: "Free to start, no credit card required.",
+  },
+};
+
 export default async function Home() {
   const profile = await getSessionProfile();
   if (profile) redirect("/dashboard");
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(SOFTWARE_JSON_LD) }}
+      />
       <MarketingNav />
 
       <main className="flex-1">

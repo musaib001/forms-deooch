@@ -3,7 +3,7 @@ import { MarketingNav, MarketingFooter } from "@/components/marketing/MarketingN
 import { PricingCards } from "@/components/marketing/PricingCards";
 
 export const metadata: Metadata = {
-  title: "Pricing — deoochform",
+  title: "Pricing",
   description: "Simple pricing that scales with you. Start free.",
 };
 
