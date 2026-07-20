@@ -37,10 +37,13 @@ export function SubmissionsView({
   formId,
   fields,
   submissions,
+  openSubmissionId,
 }: {
   formId: string;
   fields: Field[];
   submissions: Submission[];
+  // Deep link target from the "view this response" link in notification email.
+  openSubmissionId?: string;
 }) {
   const router = useRouter();
   const [isRefreshing, startRefresh] = useTransition();
@@ -49,7 +52,14 @@ export function SubmissionsView({
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = useState<Record<string, boolean>>({});
-  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  // ponytail: selectedIndex is a position in the *table's* rows, which only
+  // matches `submissions` order while no filter/sort is applied — true on the
+  // first render a deep link lands on, which is the only time this runs.
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(() => {
+    if (!openSubmissionId) return null;
+    const i = submissions.findIndex((s) => s.id === openSubmissionId);
+    return i === -1 ? null : i;
+  });
   const [deleting, setDeleting] = useState<string | null>(null);
 
   const inputFields = useMemo(

@@ -6,10 +6,15 @@ import { SubmissionsView } from "@/components/submissions/SubmissionsView";
 
 export default async function FormSubmissionsPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ formId: string }>;
+  searchParams: Promise<{ s?: string }>;
 }) {
-  const { formId } = await params;
+  const [{ formId }, { s: openSubmissionId }] = await Promise.all([
+    params,
+    searchParams,
+  ]);
   const supabase = await createClient();
 
   const [{ data: form }, { data: submissions }] = await Promise.all([
@@ -79,7 +84,12 @@ export default async function FormSubmissionsPage({
         </span>
       </div>
 
-      <SubmissionsView formId={formId} fields={form.fields} submissions={rows} />
+      <SubmissionsView
+        formId={formId}
+        fields={form.fields}
+        submissions={rows}
+        openSubmissionId={openSubmissionId}
+      />
     </div>
   );
 }

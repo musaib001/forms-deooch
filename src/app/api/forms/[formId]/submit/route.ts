@@ -50,11 +50,16 @@ export async function POST(request: Request, { params }: Params) {
     );
   }
 
-  const { error } = await admin.from("submissions").insert({
-    form_id: formId,
-    answers: body.data.answers,
-    respondent_meta: clientMeta(request),
-  });
+  // id comes back so the owner notification can deep-link to this response.
+  const { data: submission, error } = await admin
+    .from("submissions")
+    .insert({
+      form_id: formId,
+      answers: body.data.answers,
+      respondent_meta: clientMeta(request),
+    })
+    .select("id")
+    .single();
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
 
@@ -69,7 +74,8 @@ export async function POST(request: Request, { params }: Params) {
         created_by: form.created_by,
         fields: form.fields as Field[],
       },
-      body.data.answers
+      body.data.answers,
+      submission.id
     ).catch((e) => console.error("submission notification failed", e))
   );
 
