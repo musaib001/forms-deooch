@@ -110,7 +110,7 @@ export function PublicFormRenderer({
         className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm"
       >
         <div aria-hidden className="h-1.5 bg-brand" />
-        <header className="border-b border-border bg-brand-subtle px-6 py-8 sm:px-10">
+        <header className="border-b border-border bg-brand-subtle px-6 py-8 text-center sm:px-10">
           <h1 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
             {title}
           </h1>
@@ -126,7 +126,7 @@ export function PublicFormRenderer({
             field.type === "heading" ? (
               <h2
                 key={field.id}
-                className="border-b border-border pb-2 text-lg font-semibold text-foreground first:pt-0"
+                className="rounded-xl bg-brand-subtle px-4 py-3 text-center text-lg font-semibold text-foreground"
               >
                 {field.label}
               </h2>
@@ -166,7 +166,7 @@ export function PublicFormRenderer({
           <button
             type="submit"
             disabled={submitting}
-            className="mt-1 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-brand px-5 py-3 text-[15px] font-semibold text-brand-foreground shadow-sm transition-[background-color,transform] duration-100 hover:bg-brand-hover active:translate-y-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card disabled:cursor-not-allowed disabled:opacity-70 disabled:active:translate-y-0 sm:w-auto sm:self-start"
+            className="mt-1 inline-flex w-full items-center justify-center gap-2 self-center rounded-lg bg-brand px-8 py-3 text-[15px] font-semibold text-brand-foreground shadow-sm transition-[background-color,transform] duration-100 hover:bg-brand-hover active:translate-y-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card disabled:cursor-not-allowed disabled:opacity-70 disabled:active:translate-y-0 sm:w-auto"
           >
             {submitting && (
               <span
