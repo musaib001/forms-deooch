@@ -26,7 +26,7 @@ export async function notifyOwnerOfSubmission(
     .select("email")
     .eq("id", form.created_by)
     .maybeSingle();
-  const to = owner?.email ?? process.env.OWNER_EMAIL;
+  const to = owner?.email ?? process.env.RESEND_OWNER_EMAIL;
   if (!to) return;
 
   const rows = form.fields

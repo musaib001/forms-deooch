@@ -74,7 +74,7 @@ export function FormCard({
     <div
       style={{ animationDelay: `${Math.min(index, 12) * 45}ms` }}
       className={
-        "animate-rise group relative flex min-h-[168px] flex-col gap-3.5 rounded-2xl border border-border bg-card p-4 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-brand/40 hover:shadow-[0_12px_30px_-12px_var(--brand)] " +
+        "animate-rise group relative flex min-h-[168px] flex-col gap-3.5 rounded-2xl border border-border bg-card p-4 shadow-sm transition-all duration-200 hover:z-30 focus-within:z-30 hover:-translate-y-0.5 hover:border-brand/40 hover:shadow-[0_12px_30px_-12px_var(--brand)] " +
         (busy || pending ? "pointer-events-none opacity-50" : "")
       }
     >
@@ -176,13 +176,21 @@ export function FormCard({
                       {form.archived ? "Unarchive" : "Archive"}
                     </MenuItem>
                     <MenuItem
-                      danger
                       onClick={() => {
                         trash();
                         close();
                       }}
                     >
                       Move to Trash
+                    </MenuItem>
+                    <MenuItem
+                      danger
+                      onClick={() => {
+                        close();
+                        deleteForever();
+                      }}
+                    >
+                      Delete permanently…
                     </MenuItem>
                   </>
                 )}
