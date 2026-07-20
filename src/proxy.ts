@@ -15,6 +15,8 @@ const PUBLIC_PATHS = [
   "/signup",
   "/pricing",
   "/connect",
+  "/privacy",
+  "/terms",
   "/authorize",
   "/token",
   "/register",

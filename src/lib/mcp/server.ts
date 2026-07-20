@@ -40,7 +40,15 @@ export function createMcpServer(actor: McpActor) {
         "Call list_forms to find a form's id before reading or updating it. " +
         "update_form replaces whole fields arrays, so read the form first and " +
         "send the full array back with your edits applied. Share a form using " +
-        "the publicUrl each tool returns.",
+        "the publicUrl each tool returns.\n\n" +
+        "Structuring fields: the form's title and description already render " +
+        "in a header above the fields, so never add a `heading` field that " +
+        "just repeats the title — it will look duplicated. For a form that " +
+        "covers more than one topic, group related fields under `heading` " +
+        "fields named after the topic (e.g. \"Facility Profile\", " +
+        "\"Current Systems\", \"Contact Consent\") the way a well-organized " +
+        "paper form uses section breaks — but skip the heading entirely for " +
+        "short forms where everything is one topic.",
     }
   );
   const db = createAdminClient();
@@ -59,7 +67,14 @@ export function createMcpServer(actor: McpActor) {
       inputSchema: {
         title: z.string().min(1),
         description: z.string().optional(),
-        fields: z.array(fieldSchema).default([]),
+        fields: z
+          .array(fieldSchema)
+          .default([])
+          .describe(
+            "Do not open with a `heading` field that repeats the form title — " +
+              "the title already renders above the fields. Use `heading` fields " +
+              "only to break a multi-topic form into named sections."
+          ),
       },
       outputSchema: formSummary,
     },
@@ -111,7 +126,14 @@ export function createMcpServer(actor: McpActor) {
         formId: z.string(),
         title: z.string().min(1).optional(),
         description: z.string().optional(),
-        fields: z.array(fieldSchema).optional(),
+        fields: z
+          .array(fieldSchema)
+          .optional()
+          .describe(
+            "Do not open with a `heading` field that repeats the form title — " +
+              "the title already renders above the fields. Use `heading` fields " +
+              "only to break a multi-topic form into named sections."
+          ),
         status: formStatusSchema.optional(),
       },
       outputSchema: { ...formSummary, updatedAt: z.string() },

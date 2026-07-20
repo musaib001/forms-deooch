@@ -189,6 +189,12 @@ export default async function DashboardPage({
           <Link href="/pricing" className="transition-colors hover:text-brand">
             Pricing
           </Link>
+          <Link href="/privacy" className="transition-colors hover:text-brand">
+            Privacy
+          </Link>
+          <Link href="/terms" className="transition-colors hover:text-brand">
+            Terms
+          </Link>
         </nav>
       </footer>
     </div>
