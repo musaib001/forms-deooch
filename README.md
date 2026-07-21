@@ -92,7 +92,7 @@ ChatGPT web setup and the errors people actually hit, is at
 
 ```bash
 npm install
-npm run dev      # http://localhost:3000
+npm run dev      ## http://localhost:3000
 npm test         # vitest
 npm run lint
 ```
