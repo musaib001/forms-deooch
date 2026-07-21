@@ -9,13 +9,21 @@ import { createClient } from "@/lib/supabase/browser";
 export default function ResetPasswordPage() {
   const router = useRouter();
   const [password, setPassword] = useState("");
+  const [confirm, setConfirm] = useState("");
   const [error, setError] = useState<string>();
+  const [confirmError, setConfirmError] = useState<string>();
   const [loading, setLoading] = useState(false);
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
+    setConfirmError(undefined);
     if (password.length < 8) {
       setError("Use at least 8 characters.");
+      return;
+    }
+    if (confirm !== password) {
+      setError(undefined);
+      setConfirmError("Passwords don't match.");
       return;
     }
     setError(undefined);
@@ -52,6 +60,14 @@ export default function ResetPasswordPage() {
           autoComplete="new-password"
           error={error}
           hint="At least 8 characters."
+        />
+        <PasswordField
+          id="confirm-password"
+          label="Confirm password"
+          value={confirm}
+          onChange={setConfirm}
+          autoComplete="new-password"
+          error={confirmError}
         />
         <button
           type="submit"

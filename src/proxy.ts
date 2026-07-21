@@ -77,6 +77,8 @@ export async function proxy(request: NextRequest) {
 
 export const config = {
   matcher: [
-    "/((?!_next/static|_next/image|favicon.ico|robots.txt|sitemap.xml|opengraph-image).*)",
+    // email-logo.png is fetched by mail clients with no session — without this
+    // the gate 307s it to /login and the logo renders broken in every email.
+    "/((?!_next/static|_next/image|favicon.ico|robots.txt|sitemap.xml|opengraph-image|email-logo.png).*)",
   ],
 };
