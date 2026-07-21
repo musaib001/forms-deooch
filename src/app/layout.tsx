@@ -15,35 +15,46 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+// One brand string, used everywhere. "Deooch Forms" over "deoochform": it
+// matches the domain, the MCP Registry entry, and how people actually type it.
+// alternateName below keeps the old spelling resolving to the same entity.
+const BRAND = "Deooch Forms";
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "deoochform — AI-native form builder",
-    template: "%s — deoochform",
+    default: `${BRAND} — AI form builder with an MCP connector`,
+    template: `%s — ${BRAND}`,
   },
   description:
-    "Create forms by describing them in plain English to your AI assistant, or build them by hand. Collect responses in one place and export to Excel.",
-  applicationName: "deoochform",
+    "Build forms by describing them to Claude, ChatGPT, or any MCP assistant — or by hand in the studio. Share a public link, collect responses in one place, export to Excel. Free plan, no card.",
+  applicationName: BRAND,
   keywords: [
     "AI form builder",
-    "form builder",
-    "MCP forms",
+    "AI form MCP connector",
+    "MCP server for forms",
+    "form builder MCP",
     "create forms with AI",
+    "Claude form builder",
     "online forms",
     "survey builder",
   ],
   alternates: { canonical: "/" },
+  // Search Console ownership, for the HTML-tag verification method. Unset is
+  // fine — the tag just isn't rendered. Skip this entirely if you verify
+  // deooch.com as a DNS domain property instead, which covers every subdomain.
+  verification: { google: process.env.GOOGLE_SITE_VERIFICATION },
   openGraph: {
     type: "website",
-    siteName: "deoochform",
+    siteName: BRAND,
     url: SITE_URL,
-    title: "deoochform — AI-native form builder",
+    title: `${BRAND} — AI form builder with an MCP connector`,
     description:
       "Describe a form in plain English and it builds itself. Collect responses in one place and export to Excel.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "deoochform — AI-native form builder",
+    title: `${BRAND} — AI form builder with an MCP connector`,
     description:
       "Describe a form in plain English and it builds itself. Collect responses in one place and export to Excel.",
   },
@@ -55,14 +66,16 @@ const JSON_LD = {
     {
       "@type": "Organization",
       "@id": `${SITE_URL}/#organization`,
-      name: "deoochform",
+      name: BRAND,
+      alternateName: ["deoochform", "deooch forms", "deooch-forms"],
       url: SITE_URL,
       logo: `${SITE_URL}/icon.svg`,
+      sameAs: ["https://github.com/musaib001"],
     },
     {
       "@type": "WebSite",
       "@id": `${SITE_URL}/#website`,
-      name: "deoochform",
+      name: BRAND,
       url: SITE_URL,
       publisher: { "@id": `${SITE_URL}/#organization` },
     },

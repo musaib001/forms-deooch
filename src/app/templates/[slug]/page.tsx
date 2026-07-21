@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { TemplatesShell } from "@/components/templates/TemplatesShell";
+import { PublicShell } from "@/components/marketing/PublicShell";
 import { TemplatePreview } from "@/components/templates/TemplatePreview";
 import { TEMPLATES, templateBySlug } from "@/lib/forms/templates";
 import { FIELD_TYPE_LABELS, isInputField } from "@/lib/forms/schema";
@@ -26,7 +26,7 @@ export default async function TemplatePage({ params }: Params) {
   const inputs = template.fields.filter(isInputField);
 
   return (
-    <TemplatesShell>
+    <PublicShell>
       <section className="mx-auto grid max-w-6xl gap-10 px-6 py-12 lg:grid-cols-[1.15fr_1fr]">
         {/* Live preview: the real renderer in preview mode, so what's shown
             here is exactly what a respondent gets — and the swatch row
@@ -88,6 +88,6 @@ export default async function TemplatePage({ params }: Params) {
           </ul>
         </div>
       </section>
-    </TemplatesShell>
+    </PublicShell>
   );
 }

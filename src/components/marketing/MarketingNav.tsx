@@ -8,7 +8,7 @@ export function MarketingNav() {
         <Link href="/" className="flex items-center gap-2.5">
           <BrandMark className="h-8 w-8" />
           <span className="text-base font-bold tracking-tight text-foreground">
-            deoochform
+            Deooch Forms
           </span>
         </Link>
         <div className="flex items-center gap-2 sm:gap-4">
@@ -23,6 +23,18 @@ export function MarketingNav() {
             className="hidden px-2 text-sm font-medium text-muted-foreground hover:text-foreground sm:block"
           >
             MCP connectors
+          </Link>
+          <Link
+            href="/docs"
+            className="hidden px-2 text-sm font-medium text-muted-foreground hover:text-foreground sm:block"
+          >
+            Docs
+          </Link>
+          <Link
+            href="/blog"
+            className="hidden px-2 text-sm font-medium text-muted-foreground hover:text-foreground lg:block"
+          >
+            Blog
           </Link>
           <Link
             href="/pricing"
@@ -52,13 +64,19 @@ export function MarketingFooter() {
   return (
     <footer className="border-t border-border py-8">
       <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-6 text-sm text-muted-foreground sm:flex-row">
-        <p>© {new Date().getUTCFullYear()} deoochform</p>
+        <p>© {new Date().getUTCFullYear()} Deooch Forms</p>
         <div className="flex flex-wrap justify-center gap-5">
           <Link href="/templates" className="hover:text-foreground">
             Templates
           </Link>
           <Link href="/connect" className="hover:text-foreground">
             MCP connectors
+          </Link>
+          <Link href="/docs" className="hover:text-foreground">
+            Docs
+          </Link>
+          <Link href="/blog" className="hover:text-foreground">
+            Blog
           </Link>
           <Link href="/pricing" className="hover:text-foreground">
             Pricing

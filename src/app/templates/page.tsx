@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { TemplatesShell } from "@/components/templates/TemplatesShell";
+import { PublicShell } from "@/components/marketing/PublicShell";
 import { TemplateGallery } from "@/components/templates/TemplateGallery";
 
 export const metadata: Metadata = {
@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function TemplatesPage() {
   return (
-    <TemplatesShell>
+    <PublicShell>
       <section className="mx-auto max-w-6xl px-6 py-16">
         <div className="mb-10 text-center">
           <h1 className="text-4xl font-extrabold tracking-tight text-foreground">
@@ -23,6 +23,6 @@ export default function TemplatesPage() {
         </div>
         <TemplateGallery />
       </section>
-    </TemplatesShell>
+    </PublicShell>
   );
 }

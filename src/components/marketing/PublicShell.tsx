@@ -2,10 +2,12 @@ import { getSessionProfile } from "@/lib/auth/session";
 import { TopBar } from "@/components/portal/TopBar";
 import { MarketingNav, MarketingFooter } from "@/components/marketing/MarketingNav";
 
-// /templates is public but also linked from the portal nav, so it can't commit
-// to one chrome: signed-out visitors get the marketing nav, signed-in users get
-// the app's own top bar instead of a "Sign up free" button they already have.
-export async function TemplatesShell({ children }: { children: React.ReactNode }) {
+// Chrome for the public pages (/templates, /docs, /blog): they're indexable and
+// reachable signed-out, but also linked from the portal nav, so they can't
+// commit to one chrome. Signed-out visitors get the marketing nav, signed-in
+// users get the app's own top bar instead of a "Sign up free" button they
+// already have.
+export async function PublicShell({ children }: { children: React.ReactNode }) {
   const profile = await getSessionProfile();
 
   return (
