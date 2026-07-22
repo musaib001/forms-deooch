@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import {
@@ -126,19 +127,22 @@ export default async function Home() {
           <div className="mx-auto grid max-w-6xl items-center gap-12 px-6 py-20 lg:grid-cols-2">
             <div>
               <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-subtle px-3 py-1 text-xs font-bold uppercase tracking-wide text-brand">
-                MCP connectors
+                Now in the ChatGPT app directory
               </span>
               <h2 className="mt-4 text-3xl font-extrabold tracking-tight text-foreground">
                 Works with the AI you already use.
               </h2>
               <p className="mt-4 text-base leading-relaxed text-muted-foreground">
-                deoochform speaks the Model Context Protocol, so any
-                MCP-compatible assistant can build your forms and read your
-                responses — signed in as you, over HTTPS. No copy-pasting, no
-                plugins to maintain.
+                Search{" "}
+                <span className="font-semibold text-foreground">deooch</span> in
+                ChatGPT&apos;s app directory and install it in one click — then
+                just <span className="font-semibold text-foreground">@deoochform</span>{" "}
+                whatever you need. It speaks the Model Context Protocol, so any
+                MCP-compatible assistant works the same way, signed in as you.
               </p>
               <ul className="mt-6 flex flex-col gap-3">
                 {[
+                  "One-click install from the ChatGPT app directory",
                   "Six tools: create, update, read forms and submissions",
                   "Signs in through your browser — nothing to store",
                   "Revoke any connection instantly",
@@ -164,27 +168,17 @@ export default async function Home() {
               </Link>
             </div>
 
-            {/* Decorative: mirrors the terminal styling on /connect. */}
-            <div className="overflow-hidden rounded-xl border border-slate-700 bg-slate-900 shadow-lg">
-              <div className="flex items-center gap-1.5 border-b border-slate-700/70 px-4 py-2.5">
-                <span className="h-2.5 w-2.5 rounded-full bg-slate-600" />
-                <span className="h-2.5 w-2.5 rounded-full bg-slate-600" />
-                <span className="h-2.5 w-2.5 rounded-full bg-slate-600" />
-                <span className="ml-2 text-xs font-medium text-slate-400">
-                  Your AI assistant
-                </span>
-              </div>
-              <pre className="overflow-x-auto px-4 py-4 font-mono text-xs leading-relaxed">
-                <div className="text-slate-300">
-                  <span className="select-none text-brand">$ </span>
-                  Create a customer feedback form with a rating and a comment box
-                </div>
-                <div className="mt-2 text-slate-400">  ⚒ create_form</div>
-                <div className="text-emerald-400">
-                  {`  ✔ Created. Public link: ${SITE_URL}/f/kx28fq`}
-                </div>
-              </pre>
-            </div>
+            {/* Real screenshot beats a mocked terminal — it's proof we're
+                actually listed. Priority: it's above the fold on desktop. */}
+            <Image
+              src="/chatgpt/directory-listing.jpg"
+              alt="The deoochform listing in the ChatGPT app directory, with an Install plugin button and example prompts"
+              width={1200}
+              height={989}
+              priority
+              sizes="(max-width: 1024px) 100vw, 560px"
+              className="w-full rounded-xl border border-border shadow-lg"
+            />
           </div>
         </section>
 

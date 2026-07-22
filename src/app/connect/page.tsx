@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { getSessionProfile } from "@/lib/auth/session";
 import { SITE_URL, MCP_URL } from "@/lib/site";
@@ -176,9 +177,65 @@ export default async function ConnectPage() {
             </h2>
           </div>
           <p className="mb-4 text-sm text-muted-foreground">
-            In the ChatGPT web app you add deoochform as a connector — the same
-            place plugins live. Custom connectors need a plan that supports them
-            (Plus, Pro, or Business), with developer mode / connectors enabled.
+            deoochform is published in the ChatGPT app directory, so there&apos;s
+            nothing to paste — install it and sign in.
+          </p>
+
+          <Step n={1} title="Search the app directory">
+            <p className="mb-3 text-sm text-muted-foreground">
+              Open{" "}
+              <span className="font-semibold text-foreground">Apps</span> in
+              ChatGPT and search for{" "}
+              <span className="font-semibold text-foreground">deooch</span> —
+              we&apos;re listed under Productivity.
+            </p>
+            <Shot
+              src="/chatgpt/directory-search.jpg"
+              width={920}
+              height={365}
+              alt="ChatGPT's Productivity app category with deoochform listed in the results"
+            />
+          </Step>
+
+          <Step n={2} title="Install the plugin">
+            <p className="mb-3 text-sm text-muted-foreground">
+              Open the listing and hit{" "}
+              <span className="font-semibold text-foreground">Install plugin</span>.
+              ChatGPT sends you to deoochform&apos;s sign-in — approve it and
+              you&apos;re back in the chat, connected.
+            </p>
+            <Shot
+              src="/chatgpt/directory-listing.jpg"
+              width={1200}
+              height={989}
+              alt="The deoochform listing in the ChatGPT app directory, with the Install plugin button and example prompts"
+            />
+          </Step>
+
+          <Step n={3} title="Mention it in a chat" last>
+            <p className="mb-3 text-sm text-muted-foreground">
+              Type <span className="font-semibold text-foreground">@deoochform</span>{" "}
+              and ask for what you want:
+            </p>
+            <Terminal
+              lines={[
+                { prompt: true, text: "@deoochform Create a customer feedback form with a rating and a comment box" },
+                { text: "  ⚒ create_form" },
+                { text: `  ✔ Created. Public link: ${SITE_URL}/f/kx28fq`, tone: "ok" },
+              ]}
+            />
+          </Step>
+        </section>
+
+        <section className="mb-10">
+          <h2 className="mb-1 text-base font-bold text-foreground">
+            Adding it manually instead
+          </h2>
+          <p className="mb-4 text-sm text-muted-foreground">
+            If your ChatGPT account doesn&apos;t show the directory, add
+            deoochform as a custom connector by hand. Custom connectors need a
+            plan that supports them (Plus, Pro, or Business), with developer
+            mode / connectors enabled.
           </p>
 
           <Step n={1} title="Open Settings → Connectors">
@@ -387,6 +444,30 @@ function Step({
       <h3 className="pt-1 text-sm font-semibold text-foreground">{title}</h3>
       <div className="pb-8 pt-2">{children}</div>
     </div>
+  );
+}
+
+// Real ChatGPT screenshots, so they're actual images rather than markup.
+function Shot({
+  src,
+  alt,
+  width,
+  height,
+}: {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+}) {
+  return (
+    <Image
+      src={src}
+      alt={alt}
+      width={width}
+      height={height}
+      sizes="(max-width: 768px) 100vw, 768px"
+      className="w-full rounded-xl border border-border"
+    />
   );
 }
 

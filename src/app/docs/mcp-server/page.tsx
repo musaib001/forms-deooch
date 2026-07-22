@@ -69,7 +69,7 @@ const FAQS = [
   },
   {
     q: "Which AI assistants work with Deooch Forms?",
-    a: "Any client that supports remote MCP servers over HTTP — Claude (desktop, web, and Claude Code), ChatGPT with custom connectors enabled, Cursor, Windsurf, Zed, and the many smaller MCP clients. You add the same URL everywhere; sign-in happens in the browser via OAuth.",
+    a: "Any client that supports remote MCP servers over HTTP — Claude (desktop, web, and Claude Code), ChatGPT, Cursor, Windsurf, Zed, and the many smaller MCP clients. In ChatGPT we're listed in the app directory, so you can install us by name; everywhere else you add the same URL. Sign-in happens in the browser via OAuth.",
   },
   {
     q: "Do I need an API key?",
@@ -118,9 +118,11 @@ export default function McpServerDocPage() {
             connector → paste <code>{MCP_URL}</code>.
           </li>
           <li>
-            <strong>ChatGPT</strong> — Settings → Connectors → Create custom
-            connector. Requires a plan that supports custom connectors (Plus,
-            Pro, or Business) with developer mode enabled.
+            <strong>ChatGPT</strong> — search{" "}
+            <strong>deooch</strong> in the app directory and hit Install plugin;
+            no URL to paste. Failing that, Settings → Connectors → Create custom
+            connector, which needs a plan that supports them (Plus, Pro, or
+            Business) with developer mode enabled.
           </li>
           <li>
             <strong>Cursor, Windsurf, Zed, and other config-file clients</strong>{" "}

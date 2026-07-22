@@ -14,6 +14,9 @@ const PUBLIC_PREFIXES = [
   "/templates/",
   "/docs/",
   "/blog/",
+  // Screenshots on "/" and /connect — both signed-out pages, so the images
+  // have to resolve without a session too.
+  "/chatgpt/",
 ];
 // /pricing and /connect are marketing pages: reachable signed-out, and they
 // render their own nav rather than the portal's.
