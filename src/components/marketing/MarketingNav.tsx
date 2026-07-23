@@ -2,12 +2,15 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { BrandMark } from "@/components/BrandMark";
 
+// ponytail: links drop out by breakpoint instead of a burger menu — the nav
+// only has to fit brand + Log in + Start free at 360px, and everything hidden
+// here is still in the footer. Add a sheet menu when the link list grows.
 const LINKS = [
-  { href: "/templates", label: "Templates", show: "" },
-  { href: "/connect", label: "MCP connectors", show: "hidden sm:block" },
-  { href: "/docs", label: "Docs", show: "hidden sm:block" },
+  { href: "/templates", label: "Templates", show: "hidden sm:block" },
+  { href: "/connect", label: "MCP connectors", show: "hidden md:block" },
+  { href: "/docs", label: "Docs", show: "hidden md:block" },
   { href: "/blog", label: "Blog", show: "hidden lg:block" },
-  { href: "/pricing", label: "Pricing", show: "" },
+  { href: "/pricing", label: "Pricing", show: "hidden sm:block" },
 ];
 
 /**
@@ -27,18 +30,20 @@ export function MarketingNav({ tone = "light" }: { tone?: "light" | "ink" }) {
 
   return (
     <header className={`sticky top-0 z-50 border-b backdrop-blur ${shell}`}>
-      <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
+      <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-3 px-4 sm:px-6">
         <Link
           href="/"
-          className="group flex items-center gap-2.5 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+          className="group flex shrink-0 items-center gap-2.5 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
         >
-          <BrandMark className="h-8 w-8 transition-transform duration-150 ease-out group-hover:scale-105" />
-          <span className={`text-base font-bold tracking-tight ${wordmark}`}>
+          <BrandMark className="h-8 w-8 shrink-0 transition-transform duration-150 ease-out group-hover:scale-105" />
+          <span
+            className={`whitespace-nowrap text-base font-bold tracking-tight ${wordmark}`}
+          >
             Deooch Forms
           </span>
         </Link>
 
-        <div className="flex items-center gap-1 sm:gap-2">
+        <div className="flex shrink-0 items-center gap-1 sm:gap-2">
           {LINKS.map(({ href, label, show }) => (
             <Link
               key={href}
@@ -50,7 +55,7 @@ export function MarketingNav({ tone = "light" }: { tone?: "light" | "ink" }) {
           ))}
           <Link
             href="/login"
-            className={`rounded-md px-2 py-2 text-sm font-medium transition-colors duration-100 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${link}`}
+            className={`whitespace-nowrap rounded-md px-2 py-2 text-sm font-medium transition-colors duration-100 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${link}`}
           >
             Log in
           </Link>
